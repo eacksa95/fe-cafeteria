@@ -1,17 +1,19 @@
 import {Link} from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import '../estilos/App.css'
 
- const Navbar = () => {
-    
+ const Navbar = ({onLogout}) => {
+   
     return(
       <nav className='navbarcoffee'>
+      <h4>Coffe Shop</h4>
       <ul>
         <li>
           <Link to="/" className='navbarcoffee-link'>Inicio</Link>
         </li>
         <hr />
         <li>
-          <Link to="/pedidoslistos" className='navbarcoffee-link'>Pedidos Listos</Link>
+          <Link to="/pedidoslistos" className='navbarcoffee-link'>Pedidos</Link>
         </li>
         <hr />
         <li>
@@ -19,13 +21,11 @@ import '../estilos/App.css'
         </li>
         <hr />
         <li>
-          <Link to="/analytics" className='navbarcoffee-link'>Analytics</Link>
-        </li>
-        <hr />
-        <li>
-          <Link to="/admin" className='navbarcoffee-link'>Admin</Link>
+          <Link to="/carrito" className='navbarcoffee-link'>Carrito</Link>
         </li>
       </ul>
+      <button onClick={() => {onLogout()}}>Logout</button>
+
     </nav>
         )
         

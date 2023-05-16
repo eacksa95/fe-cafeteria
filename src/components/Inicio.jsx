@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Carrito } from "./Carrito"
 import { ListaProductos } from "./ListaProductos"
+import PedidosTabla from "./PedidosTabla"
 import Productos from "./Productos";
 
 export const Inicio = () => {
@@ -29,4 +30,3 @@ export const Inicio = () => {
 		</>
 	);
 }
-

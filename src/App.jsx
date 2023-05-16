@@ -23,6 +23,7 @@ function App() {
 
   const onLogoutHandler = () => {
     setUserId(null)
+    //window.localStorage.removeAll()
     window.localStorage.removeItem('accessToken')
   }
 

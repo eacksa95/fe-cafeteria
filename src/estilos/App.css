@@ -62,26 +62,35 @@
   list-style: none;
   display: flex !important;
   flex-direction: row !important;
+  align-items: center;
   justify-content: space-between;
   background-color: #904E2A !important;
+}
+.navbarcoffee h4{
+ font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .navbarcoffee ul {
   display: flex;
   flex-direction: row !important;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   list-style: none;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .navbarcoffee ul li {
-  margin-right: 20px;
-  margin-left: 20px; /* O cualquier otro valor de margen deseado */
+  margin-right: 10px;
+  margin-left: 10px; /* O cualquier otro valor de margen deseado */
 }
 
 .navbarcoffee-link{
   color: #000 !important;
+}
+
+.navbarcoffee button{
+	color: aqua;
+	background-color: #904E2A !important;
 }
 
 
@@ -90,8 +99,8 @@
   display: flex;
   flex-direction: row;
   justify-content: start;
-  align-items: center;
-  height: 8vh;
+  align-items: start;
+  height: 50px;
   background-color: #f7d2ad !important;
 }
 
@@ -101,6 +110,7 @@
   height: 80%;
   margin-top: 1%;
   margin-left: 2%;
+
 }
 
 .dropdown-buttom {
@@ -114,7 +124,7 @@
 .carrito {
 	display: flex;
 	justify-content: space-between;
-	padding: 30px 10px 40px 10px;
+	padding: 20px 10px 20px 10px;
   background-color: #f7d2ad !important;
 }
 
@@ -126,6 +136,30 @@
   font-family: Helvetica !important;
   color: black;
 }
+
+/*Carrito Inputs*/
+.contenedorInputs{
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 5px !important;
+}
+
+.contenedorInputs .Cliente{
+	align-items: center;
+	padding: 5px;
+}
+
+.contenedorInputs .Mesa{
+	align-items: center;
+	padding: 5px;
+}
+
+.contenedorInputs .Mesa input{
+	width: 50%;
+	}
 
 
 /*icono Carrito*/
@@ -297,9 +331,25 @@
 	display: none;
 }
 
+.btn-enviarpedido {
+	border: none;
+	background-color: #7af309;
+	color: #fff;
+	padding: 15px 0;
+	display: block;
+	width: 100%;
+	margin-top: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	font-family: inherit;
+	cursor: pointer;
+  font-size: 16px;
+  transition: all .3s ease;
+}
+
 .btn-clear-all {
 	border: none;
-	background-color: #000;
+	background-color: #00000085;
 	color: #fff;
 	padding: 15px 0;
 	display: block;
@@ -318,3 +368,54 @@
   transform: scale(1.03);
   border-radius: 0;
 }
+
+/*TabblaPedidos*/
+.contenedor-PedidosTabla{
+	background-color: #f7d2ad;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.contenedor-PedidosTabla .titulo{
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	padding-left: 20px;
+	text-decoration: underline;
+}
+
+.PedidosTabla{
+	justify-content: center;
+}
+
+.PedidosTabla thead tr {
+	background-color: rgb(247, 177, 130);
+	justify-content: center;
+	align-items: center;
+}
+
+.PedidosTabla tbody{
+	background-color: rgb(252, 204, 171);
+}
+
+.PedidosTabla tbody tr {
+	justify-content: center;
+	align-items: center;
+}
+
+
+.PedidosTabla tbody tr td .botonProcesar {
+	border: none;
+	background-color: transparent;
+	color: green;
+	cursor: pointer;
+}
+
+.PedidosTabla tbody tr td .botonEliminar {
+	border: none;
+	background-color: transparent;
+	color: red;
+	cursor: pointer;
+}
+
+ 

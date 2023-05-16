@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const Carrito = ({
 	allProducts,
@@ -9,12 +9,16 @@ export const Carrito = ({
 	setTotal,
 }) => {
 	const [active, setActive] = useState(false);
-
+	const [cliente, setCliente] = useState('cliente');
+	const [mesa, setMesa] = useState('1');
+	
+	//Enviarpedido response
+	const [pedido, setPedido] = useState([])
+	
 	const onDeleteProduct = producto => {
 		const results = allProducts.filter(
 			item => item.id !== producto.id
 		);
-
 		setTotal(total - producto.precio * producto.cantidad);
 		setCountProducts(countProducts - producto.cantidad);
 		setAllProducts(results);
@@ -26,12 +30,66 @@ export const Carrito = ({
 		setCountProducts(0);
 	};
 
+	//enviar Pedido
+	const onEnviarPedido = () => {
+
+		useEffect(() => {
+			fetch('http://localhost:8000/pedidos/', {
+				method: 'POST' /* or POST/PUT/PATCH/DELETE */,
+				headers: {
+					Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+					'Content-Type': 'application/json',
+				}, body: JSON.stringify({
+					mesa,
+					lista_productos,
+					cliente,
+					monto
+				  }),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setPedido(data)
+				})
+		}, [])
+	}
+
+
+
+
 	return (
 		<header className='carrito'>
+			
 			<div className='carrito-titulo'>
 			<h3>Carrito</h3>
 			<p>Buen apetito</p>
 			</div>
+
+			<div className='contenedorInputs'>
+			<div className='Cliente'>
+			<input
+				aria-label="Cliente"
+				placeholder="Cliente"
+				id="cliente"
+				type="text"
+				onChange={(e) => {
+				setCliente(e.target.value)
+        		}}
+      		/>
+			</div>
+			<div className='Mesa'>
+			<input
+				aria-label="Mesa"
+				placeholder="Mesa Nº"
+				id="Mesa"
+				type="text"
+				onChange={(e) => {
+				setMesa(e.target.value)
+        		}}
+      		/>
+			</div>
+			</div>
+			
+			
 			
 
 			<div className='container-icon'>
@@ -105,6 +163,9 @@ export const Carrito = ({
 
 							<button className='btn-clear-all' onClick={onCleanCart}>
 								Vaciar Carrito
+							</button>
+							<button className='btn-enviarpedido' onClick={onEnviarPedido}>
+								Enviar Pedido
 							</button>
 						</>
 					) : (

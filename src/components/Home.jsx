@@ -13,6 +13,7 @@ import { Inicio } from './Inicio'
 
 //paginas
 import { Admin, Analytics, Dashboard }from '../pages'
+import PedidosTabla from './PedidosTabla'
 
 
 const Home = ({ onLogout, userId }) => {
@@ -45,27 +46,28 @@ const Home = ({ onLogout, userId }) => {
   return (
     <div className="home">
       <BrowserRouter>
-      <Navbar />
+      <Navbar onLogout={logoutHandler}/>
       
       <div className='contenedorMenu'>
       <DropdownMenu/>
+      
       </div>
       
       <Routes>
-        <Route path="/" element={<Inicio />} />
+        <Route path="/" element={<PedidosTabla />} />
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
         <Route path="/pedidoslistos" element={<PedidosListos />} />
           <Route path="/nuevopedido" element={<NuevoPedido/>} />
           <Route path="/productos" element={<Productos />} />
         </Route>
         <Route
-          path="/analytics"
+          path="/carrito"
           element={
             <ProtectedRoute
-              redirectTo="/home"
+              redirectTo="/"
               isAllowed={!!user && role.includes("recepcionista")}
             >
-              <Analytics />
+              <Inicio />
             </ProtectedRoute>
           }
         />
