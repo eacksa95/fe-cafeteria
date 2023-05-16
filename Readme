@@ -1,0 +1,9 @@
+comandos utilizados para la instalación del proyecto
+iniciar un nuevo proyecto con Vite
+npm init vite
+project name: mi-proyecto
+select a framework: React
+select a variant: javascript
+cd mi-proyecto
+npm install
+code . //abrir visual studio code en .
