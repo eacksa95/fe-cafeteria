@@ -1,9 +1,29 @@
+Descripción del Proyecto:
+    proyecto js que utiliza las siguientes tecnologías
+    node 18.15.0
+    npm v18.15.0
+    react Vite React, variant javascript, project name: FE-CAFETERIA
+    
+Objetivo: sirve de cliente para un servidor desarrollado en python BE-CAFETERIA que se escucha en el localhost:8000/.
+
+FE-CAFETERÍA: Gestiona datos del usuario según accesTocken se almacena en el windows.LocalStorage del navegador.
+
+Pregunta 1 para profesor: Tengo problema para ejecutar la aplicación en el navegador Firefox. Mientras tanto utilizo Edge que si me permite ejecutar el proyecto. al parecer el firefox lo tengo configurado para que pre-procece los json, o nose si eso tenga algo que ver para la aplicación. Nose como hacer el ajuste.
+
+
 comandos utilizados para la instalación del proyecto
 iniciar un nuevo proyecto con Vite
 npm init vite
-project name: mi-proyecto
+project name: FE-CAFETERIA
 select a framework: React
 select a variant: javascript
-cd mi-proyecto
+cd FE-CAFETERIA
 npm install
 code . //abrir visual studio code en .
+
+Bienvenido al codigo de FE-CAFETERIA
+components contiene Home, Login y otros componentes de la aplicación.
+estilos contiene dos archivos css. index.css y App.css
+    index.css: contiene congiruaciones mas generales
+    App.css: contiene configuraciones mas particulares: NavBar, MenuDropdown, Titulos, Items
+pages es una carpeta que contendra poco a poco mas archivos jsx con funciones y variables para renderizar páginas mas personalizadas. y Components vendrá a ser poco a poco una colección de componentes dedicados a la seguridad, y a otro tipo de preprocesamiento para las vistas o funciones.
