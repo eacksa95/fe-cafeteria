@@ -39,11 +39,10 @@ export const ListaProductos = ({
 			setTotal(total + producto.precio * producto.cantidad);
 			setCountProducts(countProducts + producto.cantidad);
 			return setAllProducts([...products]);
-		}
-
-		setTotal(total + producto.precio * producto.cantidad);
-		setCountProducts(countProducts + producto.cantidad);
-		setAllProducts([...allProducts, producto]);
+			}
+			setTotal(total + producto.precio * producto.cantidad);
+			setCountProducts(countProducts + producto.cantidad);
+			setAllProducts([...allProducts, producto]);
 	};
 
 	return (

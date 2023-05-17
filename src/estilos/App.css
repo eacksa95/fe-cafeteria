@@ -41,81 +41,11 @@
   color: #888;
 }
 
-/*.home { no background }*/
-
-.navbarItem {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.navbarItem:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/*Navbar*/
-.navbarcoffee{
-  list-style: none;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #904E2A !important;
-}
-.navbarcoffee h4{
- font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.navbarcoffee ul {
-  display: flex;
-  flex-direction: row !important;
-  justify-content: space-between;
-  align-items: flex-end;
-  list-style: none;
-  margin-right: 10px;
-}
-
-.navbarcoffee ul li {
-  margin-right: 10px;
-  margin-left: 10px; /* O cualquier otro valor de margen deseado */
-}
-
-.navbarcoffee-link{
-  color: #000 !important;
-}
-
-.navbarcoffee button{
-	color: aqua;
-	background-color: #904E2A !important;
-}
 
 
-/*Menu Desplegable*/
-.contenedorMenu {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: start;
-  height: 50px;
-  background-color: #f7d2ad !important;
-}
 
-.dropdown {
-  position: relative;
-  border-radius: 10%;
-  height: 80%;
-  margin-top: 1%;
-  margin-left: 2%;
 
-}
 
-.dropdown-buttom {
-  background-color: #904E2A !important;
-}
 
 
 /*Carrito*/

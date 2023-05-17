@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react'
+
+//estilos
 import './estilos/App.css'
+
+//bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-import Login from './components/Login'
-import Home from './components/Home'
+
+//componentes
+import Login from './components/login/Login'
+import Home from './components/home/Home'
 import jwtDecode from 'jwt-decode'
 
 function App() {

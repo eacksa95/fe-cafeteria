@@ -1,8 +1,9 @@
 import {Link} from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import '../estilos/App.css'
 
- const Navbar = ({onLogout}) => {
+
+
+const Navbar = ({onLogout}) => {
    
     return(
       <nav className='navbarcoffee'>

@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import '../estilos/App.css'
-import '../estilos/index.css'
-import coffeeIcon from '../assets/coffee.svg'
+import { useState, useEffect } from 'react'
+import coffeeIcon from '../../assets/coffee.svg'
 import jwtDecode from 'jwt-decode'
+
+//estilos
+import '../../estilos/Login.css'
 
 
 const Login = ({ onLogin }) => {

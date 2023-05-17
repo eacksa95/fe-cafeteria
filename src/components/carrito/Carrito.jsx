@@ -12,9 +12,41 @@ export const Carrito = ({
 	const [cliente, setCliente] = useState('cliente');
 	const [mesa, setMesa] = useState('1');
 	
-	//Enviarpedido response
-	const [pedido, setPedido] = useState([])
+	//onEnviarPedido response
+	const [pedido, setPedido] = useState([])	
+	//pedidoId ++
+	const [pedidos, setPedidos] = useState();
+	const [pedidoId, setPedidoId] = useState();
+
+
+
+	//consultar Pedidos existentes
+		useEffect( () => {
+			fetch('http://localhost:8000/pedidos/', {
+				method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+				headers: {
+					Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+					'Content-Type': 'application/json',
+					},
+				})
+				.then((res) => res.json())
+				.then((data) => {
+				setPedidos(data)
+				})
+			}, [])
 	
+	//Extraer id mas alto de la lista de pedidos
+	const obtenerIdMasAlto = () => {
+		const idMasAlto = pedidos.reduce((maxId, pedido) => {
+		  return pedido.id > maxId ? pedido.id : maxId;
+		}, 0);
+	
+		setPedidoId(idMasAlto);
+	  };
+
+
+
+	//eliminar articulo de carrito		
 	const onDeleteProduct = producto => {
 		const results = allProducts.filter(
 			item => item.id !== producto.id
@@ -24,33 +56,40 @@ export const Carrito = ({
 		setAllProducts(results);
 	};
 
+	//vaciar carrito
 	const onCleanCart = () => {
 		setAllProducts([]);
 		setTotal(0);
 		setCountProducts(0);
 	};
 
+
+
 	//enviar Pedido
 	const onEnviarPedido = () => {
-
-		useEffect(() => {
-			fetch('http://localhost:8000/pedidos/', {
-				method: 'POST' /* or POST/PUT/PATCH/DELETE */,
-				headers: {
-					Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-					'Content-Type': 'application/json',
-				}, body: JSON.stringify({
-					mesa,
-					lista_productos,
-					cliente,
-					monto
-				  }),
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					setPedido(data)
+		//obtenerIdMasAlto()
+			obtenerIdMasAlto()
+			const lista_productos = JSON.stringify(allProducts)
+			const id = pedidoId
+			const monto = total
+				fetch('http://localhost:8000/pedidos/', {
+					method: 'POST' /* or POST/PUT/PATCH/DELETE */,
+					headers: {
+						Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+						'Content-Type': 'application/json',
+					}, body: JSON.stringify({
+						id,
+						cliente,
+						mesa,
+						lista_productos,
+						monto
+					}),
 				})
-		}, [])
+					.then((res) => res.json())
+					.then((data) => {
+					setPedido(data)
+					})
+			
 	}
 
 

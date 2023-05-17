@@ -1,4 +1,4 @@
-import Pedidos from './Pedidos'
+
 
 const PedidosListos = () => {
     return(
@@ -7,10 +7,11 @@ const PedidosListos = () => {
           <h2>Pedidos Listos</h2><hr />
           </div>
           <div className="pedidoslistos-pedidos">
-              <Pedidos />
+              <span> tabla que contiene Pedidos Listos</span>
           </div>
      
     </div>
     )
   }
+
   export default PedidosListos

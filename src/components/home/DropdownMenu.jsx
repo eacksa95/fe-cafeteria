@@ -22,13 +22,13 @@ function DropdownMenu() {
           </Nav.Link>
         </Dropdown.Item>
         <Dropdown.Item>
-          <Nav.Link as={Link} to="/productos">
-            Productos
+          <Nav.Link as={Link} to="/pedidospendientes">
+            Pedidos Pendientes
           </Nav.Link>
         </Dropdown.Item>
         <Dropdown.Item>
-          <Nav.Link as={Link} to="/contact">
-            Contact
+          <Nav.Link as={Link} to="/cancelarpedido">
+            Cancelar un Pedido?
           </Nav.Link>
         </Dropdown.Item>
       </Dropdown.Menu>
