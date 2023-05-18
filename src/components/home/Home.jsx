@@ -79,7 +79,7 @@ const Home = ({ onLogout, userId }) => {
               </Route>
 
               <Route 
-                path="/carritodecompra" 
+                path="/carrito" 
                 element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} >
                                         <CarritoVista />
                           </ProtectedRoute>

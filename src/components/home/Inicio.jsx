@@ -1,4 +1,4 @@
-export const Inicio = () => {
+export const Inicio = ({children}) => {
     return (
     <div className="contenedorInicio">
         <div className="InicioIzquierda">
@@ -11,7 +11,7 @@ export const Inicio = () => {
             </div>
         </div>
         <div className="InicioDerecha">
-
+            {children}
         </div>
         
     </div>)

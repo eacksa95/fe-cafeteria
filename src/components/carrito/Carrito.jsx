@@ -22,6 +22,7 @@ export const Carrito = ({
 
 	//consultar Pedidos existentes
 		useEffect( () => {
+			try{
 			fetch('http://localhost:8000/pedidos/', {
 				method: 'GET' /* or POST/PUT/PATCH/DELETE */,
 				headers: {
@@ -31,9 +32,11 @@ export const Carrito = ({
 				})
 				.then((res) => res.json())
 				.then((data) => {
-				setPedidos(data)
-				})
-			}, [])
+				setPedidos(data);
+				});
+			} catch (error) { console.error('Error:', error);
+				 }
+				}, []);
 	
 	//Extraer id mas alto de la lista de pedidos
 	const obtenerIdMasAlto = () => {
@@ -69,10 +72,12 @@ export const Carrito = ({
 	const onEnviarPedido = () => {
 		//obtenerIdMasAlto()
 			obtenerIdMasAlto()
+			//preparando variables para el body del request
 			const lista_productos = JSON.stringify(allProducts)
 			const id = pedidoId
 			const monto = total
-				fetch('http://localhost:8000/pedidos/', {
+			try{	
+			fetch('http://localhost:8000/pedidos/'+id, {
 					method: 'POST' /* or POST/PUT/PATCH/DELETE */,
 					headers: {
 						Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
@@ -84,11 +89,12 @@ export const Carrito = ({
 						lista_productos,
 						monto
 					}),
-				})
+				}) 
 					.then((res) => res.json())
 					.then((data) => {
 					setPedido(data)
-					})
+					});
+				} catch (error) { console.error('Error:onEnviarPedido', error);}
 			
 	}
 
