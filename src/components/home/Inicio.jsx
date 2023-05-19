@@ -1,4 +1,4 @@
-export const Inicio = ({children}) => {
+export const Inicio = ({ aboutContent, children }) => {
     return (
     <div className="contenedorInicio">
         <div className="InicioIzquierda">
@@ -9,6 +9,11 @@ export const Inicio = ({children}) => {
                     <p>En Coffee Shop estamos agradecidos con su visita, esperamos poder servirle a gusto</p>
                     <span>Buen provecho!</span>
             </div>
+            {aboutContent && (
+          <div className="aboutContent">
+            {aboutContent}
+          </div>
+        )}
         </div>
         <div className="InicioDerecha">
             {children}

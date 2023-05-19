@@ -11,7 +11,7 @@ export const Foo = () => {
                 </div>
                 <div>
                     <button type="submit"> <span>
-                    <Link to="/contacto" className='aboutLink'>Contacto</Link>
+                    <Link to="/contact" className='aboutLink'>Contacto</Link>
                     </span></button>
                 </div>
             </footer>

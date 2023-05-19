@@ -77,7 +77,7 @@ export const Carrito = ({
 			const id = pedidoId
 			const monto = total
 			try{	
-			fetch('http://localhost:8000/pedidos/'+id, {
+			fetch('http://localhost:8000/pedidos/', {
 					method: 'POST' /* or POST/PUT/PATCH/DELETE */,
 					headers: {
 						Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,

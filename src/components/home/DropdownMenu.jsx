@@ -26,11 +26,6 @@ function DropdownMenu() {
             Pedidos Pendientes
           </Nav.Link>
         </Dropdown.Item>
-        <Dropdown.Item>
-          <Nav.Link as={Link} to="/cancelarpedido">
-            Cancelar un Pedido?
-          </Nav.Link>
-        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
     </div>

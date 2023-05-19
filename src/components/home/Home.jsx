@@ -11,6 +11,8 @@ import { ProtectedRoute } from '../ProtectedRoute' //componente para protejer la
 
 //inicio
 import { Inicio } from './Inicio'
+import About from '../info/About'
+import Contact from '../info/Contact'
 
 //admin
 import { Admin } from '../admin/Admin'
@@ -19,11 +21,14 @@ import { Admin } from '../admin/Admin'
 import { CarritoVista } from '../carrito/CarritoVista'
 
 //pedidos
+import PedidosIndex from '../pedidos/PedidosIndex'
 import PedidosListos from '../pedidos/PedidosListos'
 import PedidosPendientes from '../pedidos/PedidosPendientes'
 
 //productos
-import ProductosLista from '../productos/ProductosLista'
+import ProductosIndex from '../productos/ProductosIndex'
+import ProductosTabla from '../productos/ProductosTabla'
+import ProductosNuevo from '../productos/ProductosNuevo'
 
 
 const Home = ({ onLogout, userId }) => {
@@ -71,11 +76,15 @@ const Home = ({ onLogout, userId }) => {
       <div className='contenedorRutas'>
             <Routes>
               <Route path="/" element={<Inicio />} />
-              
+              <Route path="/about" element={<Inicio><About /> </Inicio>} />
+              <Route path="/contact" element={<Inicio><Contact /> </Inicio>} />
               <Route element={<ProtectedRoute isAllowed={!!user} />}>
-                <Route path="/pedidoslistos" element={<PedidosListos />} />
-                <Route path="/pedidospendientes" element={<PedidosPendientes/>} />
-                <Route path="/productoslista" element={<ProductosLista />} />
+                <Route path="/pedidosindex" element={<PedidosIndex><PedidosPendientes/> </PedidosIndex>} />
+                <Route path="/pedidoslistos" element={<PedidosIndex><PedidosListos/> </PedidosIndex>} />
+                <Route path="/pedidospendientes" element={<PedidosIndex><PedidosPendientes/> </PedidosIndex>} />
+
+                <Route path="/productosindex" element={<ProductosIndex><ProductosTabla/></ProductosIndex>} />
+                <Route path="/productosnuevo" element={<ProductosIndex><ProductosNuevo/></ProductosIndex>} />
               </Route>
 
               <Route 

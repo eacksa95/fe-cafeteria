@@ -5,12 +5,15 @@ const About = () => {
                 <h4>Nosotros</h4>
         </div>
         <div className="contenido">
-                <p>Somos una empresa Nueva que buscmaos construir un espacio donde podamos
-                    servir agradablemente a nuestros clientes y tambien generar una fuente
-                    de ingresos para nuestras familias. Gracias por venir
+                <p>
+                    <span>En Coffee Shop buscamos poder servirle como un amigo trabajador</span>
+                    <br />
+                    <span>Mientras usted se toma un breack nosotros queremos servir</span>
+                    <br />
+                    <span>Para realizar un pedido puede pasar por el carrito</span>
                 </p>        
         </div>    
     </div>
      )    
 }
-export default About
+export default About;

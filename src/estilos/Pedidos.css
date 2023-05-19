@@ -1,0 +1,86 @@
+/* PedidosIndex*/
+.Index {
+    min-height: 70vh;
+    background-color: #f7d2ad !important;
+}
+
+.Index .titulo {
+    display: flex;
+	flex-direction: row;
+	justify-content: start;
+	padding-left: 20px;
+    
+}
+
+.Index .titulo h3 {
+    display: flex;
+	flex-direction: row;
+	justify-content: start;
+	text-decoration: underline;
+    
+}
+
+.Index .titulo .nav {
+    display: flex;
+	flex-direction: row;
+	justify-content: start;
+    align-items: center;
+	padding-left: 20px;
+    font-weight: 400;
+}
+
+.indexLink{
+    color: rgb(156, 94, 13) !important;
+    font-weight: 900;
+}
+
+
+/*contenedorTabla - titulo y tabla*/
+.contenedorTabla{
+	background-color: #f7d2ad !important;
+	padding: 5px 10px;
+}
+
+.contenedorTabla .titulo{
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	padding-left: 20px;
+	text-decoration: underline;
+}
+
+.Tabla{
+	justify-content: center;
+}
+
+.Tabla thead tr {
+	background-color: rgb(247, 177, 130);
+	justify-content: center;
+	align-items: center;
+}
+
+.Tabla tbody{
+	background-color: rgb(252, 204, 171);
+}
+
+.Tabla tbody tr {
+	justify-content: center;
+	align-items: center;
+}
+
+
+.Tabla tbody tr td .botonProcesar {
+	border: none;
+	background-color: transparent;
+	color: green;
+	cursor: pointer;
+}
+
+.Tabla tbody tr td .botonEliminar {
+	border: none;
+	background-color: transparent;
+	color: red;
+	cursor: pointer;
+}
+
+ 

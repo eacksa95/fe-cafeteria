@@ -14,11 +14,11 @@ const Navbar = ({onLogout}) => {
         </li>
         <hr />
         <li>
-          <Link to="/pedidoslistos" className='navbarcoffee-link'>Pedidos</Link>
+          <Link to="/pedidosindex" className='navbarcoffee-link'>Pedidos</Link>
         </li>
         <hr />
         <li>
-          <Link to="/productos" className='navbarcoffee-link'>Productos</Link>
+          <Link to="/productosindex" className='navbarcoffee-link'>Productos</Link>
         </li>
         <hr />
         <li>
