@@ -6,7 +6,7 @@ const ProductosIndex = ({children}) => {
         <div className="Index">
            
             <div className="titulo">
-                <h4>Productos</h4>
+                <h4>Productos:</h4>
                 
                 <div className="nav">
                      <span>

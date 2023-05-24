@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react"
 
-const ProductosNuevo = () => {
-    const [producto, setProducto] = useState([])
-    const [productoId, setProductoId] = useState()
+const ProductosNuevo = ({setMensaje}) => {
+    const [producto, setProducto] = useState([]) 
     const [productos, setProductos] = useState([])
+    const [id, setId] = useState() //id producto nuevo
     const [nombre, setNombre] = useState('')
     const [precio, setPrecio] = useState('')
-    const [cantidad, setCantidad] = useState('')
-    const [img, setImg] = useState('')
+    const [cantidad, setCantidad] = useState(1)
+    const [img, setImg] = useState('https://png.pngtree.com/template/20190323/ourmid/pngtree-coffee-logo-design-image_82183.jpg')
+
+    
+//Actualizar estado para limpiar formulario
+    const [actualizar, setActualizar] = useState (false)
    
- 
-	//consultar Pedidos existentes
+//Productos[]
     useEffect( () => {
         try{
         fetch('http://localhost:8000/productos', {
@@ -28,20 +31,19 @@ const ProductosNuevo = () => {
              }
             }, []);
 
-//Extraer id mas alto de la lista de pedidos
+//productoId            
+    useEffect(() => { obtenerIdMasAlto(); }, [productos]);
+
+//MaxId Productos
 const obtenerIdMasAlto = () => {
     const idMasAlto = productos.reduce((maxId, producto) => {
       return producto.id > maxId ? producto.id : maxId;
     }, 0);
-
-    setProductoId(idMasAlto);
+    setId(idMasAlto);
   };
 
-
-    const onNuevoProducto = (e) => {
-        e.preventDefault()
-        obtenerIdMasAlto()
-        const id = productoId
+//Nuevo Producto POST
+    const onNuevoProducto = () => {
         fetch('http://localhost:8000/productos/', {
           method: 'POST',
           headers:{ Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
@@ -57,9 +59,11 @@ const obtenerIdMasAlto = () => {
           .then((res) => res.json())
           .then((data) => {
             setProducto(data)
+            setMensaje("Producto Nuevo Registrado")
+            setActualizar(!actualizar)
           })
       }
-
+      
     return(
         <div className="contenedorForm">
             <div className="titulo">
@@ -83,15 +87,6 @@ const obtenerIdMasAlto = () => {
                     type="number"
                     onChange={(e) => {
                     setPrecio(e.target.value)
-                    }}
-                />
-                <input
-                    aria-label="Cantidad"
-                    placeholder="Cantidad"
-                    id="cantidad"
-                    type="number"
-                    onChange={(e) => {
-                    setCantidad(e.target.value)
                     }}
                 />
                 <input

@@ -1,8 +1,9 @@
 import {Link} from 'react-router-dom'
+import React from 'react'
 
 export const Foo = () => {
     return (
-            <>
+            <React.Fragment>
             <footer>
                 <div>
                     <button type="submit"> <span>
@@ -15,6 +16,6 @@ export const Foo = () => {
                     </span></button>
                 </div>
             </footer>
-            </>
+            </React.Fragment>
     )
 }

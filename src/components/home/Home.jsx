@@ -15,7 +15,7 @@ import About from '../info/About'
 import Contact from '../info/Contact'
 
 //admin
-import { Admin } from '../admin/Admin'
+import AdminIndex from '../admin/AdminIndex'
 
 //carrito
 import { CarritoVista } from '../carrito/CarritoVista'
@@ -30,13 +30,18 @@ import ProductosIndex from '../productos/ProductosIndex'
 import ProductosTabla from '../productos/ProductosTabla'
 import ProductosNuevo from '../productos/ProductosNuevo'
 
+//Mensajes del sistema
+import Mensaje from '../mensajes/Mensaje'
+
 
 const Home = ({ onLogout, userId }) => {
+
   const [user, setUser] = useState()
   const role = user ? user.group_name : null
   const logoutHandler = () => { onLogout() }
 
-  // user data
+
+  // datos de usuario
   useEffect(() => {
     fetch('http://localhost:8000/users/' + userId, {
       method: 'GET' /* or POST/PUT/PATCH/DELETE */,
@@ -50,6 +55,25 @@ const Home = ({ onLogout, userId }) => {
         setUser(userData)
       })
   }, [])
+
+
+ //Mensajes del sistema
+   //estados de mensajes del sistema
+   const [mensaje, setMensaje] = useState('');
+   const [mostrarMensaje, setMostrarMensaje] = useState(false);
+   //cuando mensaje cambia, mostrar mensaje por 3 segundos
+ useEffect(() => {
+  if (mensaje) {
+    setMostrarMensaje(true);
+    setTimeout(() => {
+      setMensaje('');
+      setMostrarMensaje(false);
+    }, 3000);
+  }
+}, [mensaje]);
+
+
+
 
 
 
@@ -69,7 +93,7 @@ const Home = ({ onLogout, userId }) => {
             </div>
             
             <div className='contenedorMensajes'>
-                <span>lugar reservado para mensajes del sistema</span>
+            {mostrarMensaje && <span>{mensaje}</span>}
             </div>
       </div>
       
@@ -79,25 +103,25 @@ const Home = ({ onLogout, userId }) => {
               <Route path="/about" element={<Inicio><About /> </Inicio>} />
               <Route path="/contact" element={<Inicio><Contact /> </Inicio>} />
               <Route element={<ProtectedRoute isAllowed={!!user} />}>
-                <Route path="/pedidosindex" element={<PedidosIndex><PedidosPendientes/> </PedidosIndex>} />
-                <Route path="/pedidoslistos" element={<PedidosIndex><PedidosListos/> </PedidosIndex>} />
-                <Route path="/pedidospendientes" element={<PedidosIndex><PedidosPendientes/> </PedidosIndex>} />
+                <Route path="/pedidosindex" element={<PedidosIndex ><PedidosPendientes  setMensaje={setMensaje}/> </PedidosIndex>} />
+                <Route path="/pedidoslistos" element={<PedidosIndex><PedidosListos setMensaje={setMensaje}/> </PedidosIndex>} />
+                <Route path="/pedidospendientes" element={<PedidosIndex ><PedidosPendientes setMensaje={setMensaje}/> </PedidosIndex>} />
 
-                <Route path="/productosindex" element={<ProductosIndex><ProductosTabla/></ProductosIndex>} />
-                <Route path="/productosnuevo" element={<ProductosIndex><ProductosNuevo/></ProductosIndex>} />
+                <Route path="/productosindex" element={<ProductosIndex><ProductosTabla setMensaje={setMensaje}/></ProductosIndex>} />
+                <Route path="/productosnuevo" element={<ProductosIndex><ProductosNuevo setMensaje={setMensaje}/></ProductosIndex>} />
               </Route>
 
               <Route 
                 path="/carrito" 
                 element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} >
-                                        <CarritoVista />
+                                        <CarritoVista setMensaje={setMensaje} />
                           </ProtectedRoute>
                        }  />
               
               <Route
                 path="/admin"
-                element={ <ProtectedRoute redirectTo="/home" isAllowed={!!user && role.includes("admin")} >
-                                        <Admin />
+                element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("admin")} >
+                                        <AdminIndex />
                           </ProtectedRoute>
                         } />
              </Routes>
@@ -114,7 +138,7 @@ const Home = ({ onLogout, userId }) => {
   )
 }
 
-
+//pagina no encontrada (Route).
 export function Notfoundpage() {
   return(
     <div className='paginanoencontrada'>
@@ -128,6 +152,8 @@ export function Notfoundpage() {
     </div>
   )
 }
+
+
 
 
 export default Home

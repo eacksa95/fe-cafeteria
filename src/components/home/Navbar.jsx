@@ -24,6 +24,9 @@ const Navbar = ({onLogout}) => {
         <li>
           <Link to="/carrito" className='navbarcoffee-link'>Carrito</Link>
         </li>
+        <li>
+          <Link to="/admin" className='navbarcoffee-link'>Admin</Link>
+        </li>
       </ul>
       <button onClick={() => {onLogout()}}>Logout</button>
 

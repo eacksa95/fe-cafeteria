@@ -8,6 +8,7 @@ import '../../estilos/Pedidos.css'
 
 
 const PedidosIndex = ({children}) => {
+    
     return(
         <div className="Index">
             <div className="titulo">

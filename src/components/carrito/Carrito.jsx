@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react';
 
 export const Carrito = ({
-	allProducts,
-	setAllProducts,
-	total,
-	countProducts,
-	setCountProducts,
-	setTotal,
-}) => {
-	const [active, setActive] = useState(false);
-	const [cliente, setCliente] = useState('cliente');
-	const [mesa, setMesa] = useState('1');
-	
-	//onEnviarPedido response
-	const [pedido, setPedido] = useState([])	
-	//pedidoId ++
-	const [pedidos, setPedidos] = useState();
-	const [pedidoId, setPedidoId] = useState();
-
+						pedidoNuevo,
+						allProducts,
+						setAllProducts,
+						total,
+						countProducts,
+						setCountProducts,
+						setTotal,
+	}) => {
+		const [active, setActive] = useState(false);
+		const [cliente, setCliente] = useState('cliente');
+		const [mesa, setMesa] = useState();
+		
+		//productos Ids de allproducts
+		const [productosIds, setProductosIds] = useState([])
+		//onEnviarPedido response
+		const [pedido, setPedido] = useState([])	
+		//pedidoId ++
+		const [pedidos, setPedidos] = useState([]);
+		const [pedidoId, setPedidoId] = useState();
 
 
 	//consultar Pedidos existentes
@@ -31,51 +33,61 @@ export const Carrito = ({
 					},
 				})
 				.then((res) => res.json())
-				.then((data) => {
-				setPedidos(data);
-				});
+				.then((data) => setPedidos(data))
+
 			} catch (error) { console.error('Error:', error);
 				 }
-				}, []);
-	
-	//Extraer id mas alto de la lista de pedidos
-	const obtenerIdMasAlto = () => {
-		const idMasAlto = pedidos.reduce((maxId, pedido) => {
-		  return pedido.id > maxId ? pedido.id : maxId;
-		}, 0);
-	
-		setPedidoId(idMasAlto);
-	  };
+				}, [])
+
+// extraer MaxId de la lista de pedidos:  id = maxid + 1
+		useEffect(() => { obtenerIdMasAlto(); }, [pedidos]);			
+
+
+// extraer id de productos de allproducts
+		useEffect(() => {
+					const productIds = allProducts.map((producto) => producto.id);
+					setProductosIds(productIds)
+				}
+				 , [allProducts])
+
+const prueba = () => {console.log(productosIds)}
+
+
+//Extraer id mas alto de la lista de pedidos
+		const obtenerIdMasAlto = () => {
+			const idMasAlto = pedidos.reduce((maxId, pedido) => {
+				return pedido.id > maxId ? pedido.id : maxId;
+			}, 0);	
+			setPedidoId(idMasAlto);
+		};
+
+
+//eliminar articulo de carrito		
+		const onDeleteProduct = producto => {
+			const results = allProducts.filter(
+				item => item.id !== producto.id
+			);
+			setTotal(total - producto.precio * producto.cantidad);
+			setCountProducts(countProducts - producto.cantidad);
+			setAllProducts(results);
+		};
+
+//vaciar carrito
+		const onCleanCart = () => {
+			setAllProducts([]);
+			setTotal(0);
+			setCountProducts(0);
+		};
 
 
 
-	//eliminar articulo de carrito		
-	const onDeleteProduct = producto => {
-		const results = allProducts.filter(
-			item => item.id !== producto.id
-		);
-		setTotal(total - producto.precio * producto.cantidad);
-		setCountProducts(countProducts - producto.cantidad);
-		setAllProducts(results);
-	};
-
-	//vaciar carrito
-	const onCleanCart = () => {
-		setAllProducts([]);
-		setTotal(0);
-		setCountProducts(0);
-	};
-
-
-
-	//enviar Pedido
+//enviar Pedido
 	const onEnviarPedido = () => {
-		//obtenerIdMasAlto()
-			obtenerIdMasAlto()
-			//preparando variables para el body del request
-			const lista_productos = JSON.stringify(allProducts)
-			const id = pedidoId
+		//preparando variables para el body del request
+			const lista_productos = productosIds
+			const id = pedidoId + 1
 			const monto = total
+			const estado = false
 			try{	
 			fetch('http://localhost:8000/pedidos/', {
 					method: 'POST' /* or POST/PUT/PATCH/DELETE */,
@@ -84,20 +96,21 @@ export const Carrito = ({
 						'Content-Type': 'application/json',
 					}, body: JSON.stringify({
 						id,
-						cliente,
 						mesa,
 						lista_productos,
-						monto
+						cliente,
+						monto,
+						estado
 					}),
 				}) 
 					.then((res) => res.json())
 					.then((data) => {
-					setPedido(data)
+					setPedido(data);
+					setActive(false);
+					pedidoNuevo()
 					});
-				} catch (error) { console.error('Error:onEnviarPedido', error);}
-			
+				} catch (error) { console.error('Error:onEnviarPedido', error);}			
 	}
-
 
 
 

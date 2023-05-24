@@ -17,14 +17,15 @@ function DropdownMenu() {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item>
-          <Nav.Link as={Link} to="/pedidoslistos">
-            Pedidos Listos
-          </Nav.Link>
+        <div className='dropdownitemdiv'>
+              <Link to="/pedidoslistos">Pedidos Listos</Link>
+          </div>
         </Dropdown.Item>
         <Dropdown.Item>
-          <Nav.Link as={Link} to="/pedidospendientes">
-            Pedidos Pendientes
-          </Nav.Link>
+          <div className='dropdownitemdiv'>
+              <Link to="/pedidospendientes">Pedidos pendientes</Link>
+          </div>
+             
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

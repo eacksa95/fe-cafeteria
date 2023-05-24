@@ -1,9 +1,17 @@
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from 'react'
 
-const PedidosListos = () => {
-    const [pedidos, setPedidos] = useState([])
+//iconos FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
+const PedidosListos = ({
+                        setMensaje
+                        }) => {
+    const [pedidos, setPedidos] = useState([])
+    const [actualizar, setActualizar] = useState(false)
+      //Lista pedidos
     useEffect(() => {
         fetch('http://localhost:8000/pedidos/', {
             method: 'GET' /* or POST/PUT/PATCH/DELETE */,
@@ -17,6 +25,82 @@ const PedidosListos = () => {
                 setPedidos(data)
             })
     }, [])
+
+          //Actualizar lista de pedidos
+          useEffect(() => {
+            fetch('http://localhost:8000/pedidos/', {
+                method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setPedidos(data)
+                })
+        }, [actualizar])
+
+
+        const entregarPedido = (pedido) => {
+          //preparando los nombres de variables para el body del request
+          const id = pedido.id
+          const cliente = pedido.cliente
+          const mesa = pedido.mesa
+          const lista_productos = pedido.lista_productos
+          const monto = pedido.monto
+          const estado = true
+          // Ejemplo de solicitud POST utilizando fetch:
+          try{
+          fetch(`http://localhost:8000/pedidos/${pedido.id}/`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+              id,
+              cliente,
+              mesa,
+              lista_productos,
+              monto,
+              estado }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log('Pedido entregado:', data);
+              setMensaje("Pedido Entregado")
+              setActualizar(!actualizar)
+            })} catch(error) {
+              // Manejo de errores en caso de que la solicitud falle
+              console.error('Error al procesar el pedido:', error);
+            };
+        };
+
+
+            //Eliminar pedido
+    
+    const deletePedido = (pedido) => {
+      try{
+        fetch(`http://localhost:8000/pedidos/${pedido.id}/`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+            
+          }
+                 //delete no requiere body
+        })
+          .then(() => {
+            setMensaje("Pedido Cancelado.");
+            setActualizar(!actualizar);
+                //pregunta: porque al actualizar el estado actualizar
+                //el componente no vuelve a renderizar la lista en la tabla?
+          })} catch(error) {
+            // Manejo de errores en caso de que la solicitud falle
+            console.error('Error al eliminar el pedido:', error);
+          };
+    }
+
 
 
     return (
@@ -39,6 +123,7 @@ const PedidosListos = () => {
           </thead>
           <tbody>
                 { pedidos.map( (pedido) => {
+                  if (pedido.estado !== false){
                     return(        
                     <tr  key={pedido.id}>
                         <td>{pedido.id}</td>
@@ -47,16 +132,16 @@ const PedidosListos = () => {
                         <td> Productos</td>
                         <td>{pedido.monto}</td>
                         <td>
-                        <button className='botonProcesar'>
-                            v
+                        <button className='botonProcesar' onClick={() => {entregarPedido(pedido)}}>
+                        <FontAwesomeIcon icon={faCheck} style={{ color: 'green' }} />
                         </button>
                         </td>
                         <td>
-                        <button className='botonEliminar'>
-                            x
+                        <button className='botonEliminar' onClick={() => {deletePedido(pedido)}}>
+                        <FontAwesomeIcon icon={faTrash} />
                         </button>
                         </td>
-                      </tr>)
+                      </tr>)} return null;
                    })}
 
           </tbody>

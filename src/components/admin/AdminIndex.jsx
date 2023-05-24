@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 
-export const Admin = () => {
+const AdminIndex = () => {
   return(
   <div className="contenedor-admin">
       <div className="titulo">
@@ -23,3 +23,4 @@ export const Admin = () => {
       </div>
   </div>)
 }
+export default AdminIndex

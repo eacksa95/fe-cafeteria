@@ -5,14 +5,23 @@ import jwtDecode from 'jwt-decode'
 //estilos
 import '../../estilos/Login.css'
 
+//mensajes
+import Mensaje from '../mensajes/Mensaje'
+import LoginCorrecto from '../mensajes/LoginCorrecto'
+import LoginError from '../mensajes/LoginError'
+
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+
+
   const loginHandle = (e) => {
     e.preventDefault()
+
     // login and get an user with JWT token
+    try{
     fetch('http://localhost:8000/api/token/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -27,10 +36,16 @@ const Login = ({ onLogin }) => {
         console.log(tokenData);
         console.log(jwtDecode(tokenData.access).user_id);
         onLogin(jwtDecode(tokenData.access).user_id)
-      })
+
+      })} catch (error) {console.log(error)}
   }
 
+
+
+ 
   return (
+    <>
+ 
     <form onSubmit={loginHandle}>
       <img src={coffeeIcon} alt="Coffee Icon" width={100} />
       <h2>Coffee Time</h2>
@@ -55,6 +70,8 @@ const Login = ({ onLogin }) => {
       />
       <button type="submit">Login</button>
     </form>
+    </>
+    
   )
 }
 

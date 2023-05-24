@@ -1,7 +1,12 @@
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from 'react'
 
-const ProductosTabla = () => {
+//iconos FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+
+const ProductosTabla = ({setMensaje}) => {
 
     const [productos, setProductos] = useState([])
 
@@ -32,6 +37,7 @@ const ProductosTabla = () => {
               <th>#</th>
               <th>Producto</th>
               <th>Precio</th>
+              <th>Editar</th>
               <th>Eliminar</th>
             </tr>
           </thead>
@@ -43,8 +49,13 @@ const ProductosTabla = () => {
                         <td>{producto.nombre}</td>
                         <td>{producto.precio}</td>
                         <td>
+                        <button className='botonProcesar'>
+                        <FontAwesomeIcon icon={faPaintBrush} />
+                        </button>
+                        </td>
+                        <td>
                         <button className='botonEliminar'>
-                            x
+                        <FontAwesomeIcon icon={faTrash} />
                         </button>
                         </td>
                       </tr>)
