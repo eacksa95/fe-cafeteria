@@ -13,29 +13,30 @@ export const ListaProductos = ({
     const [productos, setProductos] = useState([])
 
     useEffect(() => {
+		try{
         fetch('http://localhost:8000/productos/', {
             method: 'GET' /* or POST/PUT/PATCH/DELETE */,
             headers: {
-                Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-                'Content-Type': 'application/json',
-            },
-        })
+						Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+						'Content-Type': 'application/json',
+            		},
+        	})
             .then((res) => res.json())
             .then((data) => {
-                setProductos(data)
-            })
+                		setProductos(data)
+            })} catch(e) {console.log("error listaProductos: ", e)}
     }, [])
 
 
 
-
+//Agregar producto al carrito: allProducts[]
 	const onAddProduct = producto => {
 		if (allProducts.find(item => item.id === producto.id)) {
 			const products = allProducts.map(item =>
-				item.id === producto.id
-					? { ...item, cantidad: item.cantidad + 1 }
-					: item
-			);
+												item.id === producto.id
+													? { ...item, cantidad: item.cantidad + 1 }
+													: item
+											);
 			setTotal(total + producto.precio * producto.cantidad);
 			setCountProducts(countProducts + producto.cantidad);
 			return setAllProducts([...products]);

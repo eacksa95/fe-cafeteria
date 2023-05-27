@@ -9,37 +9,43 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 const PedidosListos = ({
                         setMensaje
                         }) => {
-    const [pedidos, setPedidos] = useState([])
-    const [actualizar, setActualizar] = useState(false)
-      //Lista pedidos
-    useEffect(() => {
-        fetch('http://localhost:8000/pedidos/', {
-            method: 'GET' /* or POST/PUT/PATCH/DELETE */,
-            headers: {
-                Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setPedidos(data)
-            })
-    }, [])
-
-          //Actualizar lista de pedidos
-          useEffect(() => {
-            fetch('http://localhost:8000/pedidos/', {
-                method: 'GET' /* or POST/PUT/PATCH/DELETE */,
-                headers: {
+  const [pedidos, setPedidos] = useState([])
+  const [actualizar, setActualizar] = useState(false)
+     
+  //pedidos[]
+  useEffect(() => {
+      fetch('http://localhost:8000/pedidos/', {
+          method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+          headers: {
                     Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
                     'Content-Type': 'application/json',
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setPedidos(data)
-                })
-        }, [actualizar])
+                  },
+          })
+          .then((res) => res.json())
+          .then((data) => {
+                          setPedidos(data)
+          })
+  }, [])
+
+  //Actualizar lista de pedidos
+  useEffect(() => {
+    fetch('http://localhost:8000/pedidos/', {
+        method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+        headers: {
+            Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            setPedidos(data)
+        })
+}, [actualizar])
+
+//Filtrar pedidos por estado === "listo"
+
+
+
 
 
         const entregarPedido = (pedido) => {

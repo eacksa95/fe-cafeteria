@@ -18,7 +18,7 @@ import Contact from '../info/Contact'
 import AdminIndex from '../admin/AdminIndex'
 
 //carrito
-import { CarritoVista } from '../carrito/CarritoVista'
+import {CarritoIndex} from '../carrito/CarritoIndex'
 
 //pedidos
 import PedidosIndex from '../pedidos/PedidosIndex'
@@ -29,6 +29,7 @@ import PedidosPendientes from '../pedidos/PedidosPendientes'
 import ProductosIndex from '../productos/ProductosIndex'
 import ProductosTabla from '../productos/ProductosTabla'
 import ProductosNuevo from '../productos/ProductosNuevo'
+import ProductosModificar from '../productos/ProductosModificar'
 
 //Mensajes del sistema
 import Mensaje from '../mensajes/Mensaje'
@@ -78,10 +79,9 @@ const Home = ({ onLogout, userId }) => {
 
 
   //contenido para renderizar
-  const contenidoProtegidoporRol = role && role === 'recepcionista' ? <CarritoVista /> : <Inicio />
+  const contenidoProtegidoporRol = role && role === 'recepcionista' ? <CarritoIndex /> : <Inicio />
 
-  
-
+ 
   return (
     <div className="home-container">
       <BrowserRouter>
@@ -95,6 +95,8 @@ const Home = ({ onLogout, userId }) => {
             <div className='contenedorMensajes'>
             {mostrarMensaje && <span>{mensaje}</span>}
             </div>
+
+
       </div>
       
       <div className='contenedorRutas'>
@@ -109,12 +111,13 @@ const Home = ({ onLogout, userId }) => {
 
                 <Route path="/productosindex" element={<ProductosIndex><ProductosTabla setMensaje={setMensaje}/></ProductosIndex>} />
                 <Route path="/productosnuevo" element={<ProductosIndex><ProductosNuevo setMensaje={setMensaje}/></ProductosIndex>} />
+                <Route path="/productosmodificar/:id" element={<ProductosIndex><ProductosModificar setMensaje={setMensaje}/></ProductosIndex>} />
               </Route>
 
               <Route 
                 path="/carrito" 
                 element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} >
-                                        <CarritoVista setMensaje={setMensaje} />
+                                        <CarritoIndex setMensaje={setMensaje} />
                           </ProtectedRoute>
                        }  />
               

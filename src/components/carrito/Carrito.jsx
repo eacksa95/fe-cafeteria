@@ -20,6 +20,8 @@ export const Carrito = ({
 		//pedidoId ++
 		const [pedidos, setPedidos] = useState([]);
 		const [pedidoId, setPedidoId] = useState();
+		//actualizar
+		const [actualizar, setActualizar] = useState(false)
 
 
 	//consultar Pedidos existentes
@@ -37,47 +39,43 @@ export const Carrito = ({
 
 			} catch (error) { console.error('Error:', error);
 				 }
-				}, [])
+				}, [actualizar])
 
 // extraer MaxId de la lista de pedidos:  id = maxid + 1
-		useEffect(() => { obtenerIdMasAlto(); }, [pedidos]);			
-
-
-// extraer id de productos de allproducts
-		useEffect(() => {
-					const productIds = allProducts.map((producto) => producto.id);
-					setProductosIds(productIds)
-				}
-				 , [allProducts])
-
-const prueba = () => {console.log(productosIds)}
-
+	useEffect(() => { obtenerIdMasAlto(); }, [actualizar]);			
 
 //Extraer id mas alto de la lista de pedidos
-		const obtenerIdMasAlto = () => {
-			const idMasAlto = pedidos.reduce((maxId, pedido) => {
-				return pedido.id > maxId ? pedido.id : maxId;
-			}, 0);	
-			setPedidoId(idMasAlto);
-		};
+	const obtenerIdMasAlto = () => {
+		const idMasAlto = pedidos.reduce((maxId, pedido) => {
+			return pedido.id > maxId ? pedido.id : maxId;
+		}, 0);	
+		setPedidoId(idMasAlto);
+	};
+
+// extraer id de productos de allproducts productIds[]
+	useEffect(() => {
+					const productIds = allProducts.map((producto) => producto.id);
+					setProductosIds(productIds)
+					}
+					 , [allProducts])
 
 
 //eliminar articulo de carrito		
-		const onDeleteProduct = producto => {
-			const results = allProducts.filter(
-				item => item.id !== producto.id
-			);
-			setTotal(total - producto.precio * producto.cantidad);
-			setCountProducts(countProducts - producto.cantidad);
-			setAllProducts(results);
-		};
+	const onDeleteProduct = producto => {
+		const results = allProducts.filter(
+			item => item.id !== producto.id
+		);
+		setTotal(total - producto.precio * producto.cantidad);
+		setCountProducts(countProducts - producto.cantidad);
+		setAllProducts(results);
+	};
 
 //vaciar carrito
-		const onCleanCart = () => {
-			setAllProducts([]);
-			setTotal(0);
-			setCountProducts(0);
-		};
+	const onCleanCart = () => {
+		setAllProducts([]);
+		setTotal(0);
+		setCountProducts(0);
+	};
 
 
 
@@ -87,7 +85,13 @@ const prueba = () => {console.log(productosIds)}
 			const lista_productos = productosIds
 			const id = pedidoId + 1
 			const monto = total
-			const estado = false
+			const estado = "pendiente"
+			const fecha_recepcion = new Date().toISOString().split('T')[0];
+			const currentDate = new Date();
+			const hora_recepcion = currentDate.toLocaleTimeString([], { hour12: false });
+			const hora_listo = null
+			const hora_entregado = null
+
 			try{	
 			fetch('http://localhost:8000/pedidos/', {
 					method: 'POST' /* or POST/PUT/PATCH/DELETE */,
@@ -96,11 +100,15 @@ const prueba = () => {console.log(productosIds)}
 						'Content-Type': 'application/json',
 					}, body: JSON.stringify({
 						id,
+						cliente,
 						mesa,
 						lista_productos,
-						cliente,
 						monto,
-						estado
+						estado,
+						fecha_recepcion,
+						hora_recepcion,
+						hora_listo,
+						hora_entregado
 					}),
 				}) 
 					.then((res) => res.json())
@@ -108,6 +116,7 @@ const prueba = () => {console.log(productosIds)}
 					setPedido(data);
 					setActive(false);
 					pedidoNuevo()
+					setActualizar(!actualizar)
 					});
 				} catch (error) { console.error('Error:onEnviarPedido', error);}			
 	}

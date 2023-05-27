@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Carrito } from "./Carrito"
 import { ListaProductos } from "./ListaProductos"
-
-export const CarritoVista = ({setMensaje}) => {
+export const CarritoIndex = ({setMensaje}) => {
 	const [allProducts, setAllProducts] = useState([]);
 	const [total, setTotal] = useState(0);
 	const [countProducts, setCountProducts] = useState(0);

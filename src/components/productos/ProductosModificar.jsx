@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-const ProductosNuevo = ({setMensaje}) => {
+const ProductosModificar = ({setMensaje}) => {
     const [producto, setProducto] = useState([]) 
     const [productos, setProductos] = useState([])
     const [id, setId] = useState() //id producto nuevo
@@ -9,42 +9,14 @@ const ProductosNuevo = ({setMensaje}) => {
     const [cantidad, setCantidad] = useState(1)
     const [img, setImg] = useState('https://png.pngtree.com/template/20190323/ourmid/pngtree-coffee-logo-design-image_82183.jpg')
     const [actualizar, setActualizar] = useState (false) //Actualizar estado para limpiar formulario
-   
-//productos[]
-    useEffect( () => {
-        try{
-        fetch('http://localhost:8000/productos', {
-            method: 'GET' /* or POST/PUT/PATCH/DELETE */,
-            headers: {
-                Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-                'Content-Type': 'application/json',
-                },
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                            setProductos(data);
-                            });
-        } catch (error) { console.error('Error:', error);
-             }
-            }, []);
 
-//productoId            
-    useEffect(() => { obtenerIdMasAlto(); }, [productos]);
 
-        const obtenerIdMasAlto = () => {
-            const idMasAlto = productos.reduce((maxId, producto) => {
-            return producto.id > maxId ? producto.id : maxId;
-            }, 0);
-            setId(idMasAlto + 1);
-            setCantidad(1)
-        };
-
-//Nuevo Producto POST
+//Modificar Producto PUT
     const onNuevoProducto = (e) => {
         e.preventDefault()
         try{
         fetch('http://localhost:8000/productos/', {
-          method: 'POST',
+          method: 'PUT',
           headers:{ Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
                     'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -58,7 +30,7 @@ const ProductosNuevo = ({setMensaje}) => {
           .then((res) => res.json())
           .then((data) => {
                             setProducto(data)
-                            setMensaje("Producto Nuevo Registrado")
+                            setMensaje("Guardando Cambios")
                             setActualizar(!actualizar)
                             }
           )}catch(e){ console.log("error onNuevoPedido:", e)}      }
@@ -67,10 +39,19 @@ const ProductosNuevo = ({setMensaje}) => {
     return(
         <div className="contenedorForm">
             <div className="titulo">
-                <h3>Nuevo Producto</h3>
+                <h3>Modificar Producto</h3>
             </div>
             <form onSubmit={onNuevoProducto}>
-                <p>Cargar datos de nuevo producto</p>
+                <p>Id del producto a modificar</p>
+                <input
+                    aria-label="Id"
+                    placeholder="Id del Producto"
+                    id="id"
+                    type="text"
+                    onChange={(e) => {
+                    setId(e.target.value)
+                    }}
+                />
                 <input
                     aria-label="ProductName"
                     placeholder="Nombre del Producto"
@@ -98,9 +79,9 @@ const ProductosNuevo = ({setMensaje}) => {
                     setImg(e.target.value)
                     }}
                 />
-                <button type="submit">Nuevo</button>
+                <button type="submit">Guardar</button>
             </form>
         </div>
     )
 }
-export default ProductosNuevo
+export default ProductosModificar
