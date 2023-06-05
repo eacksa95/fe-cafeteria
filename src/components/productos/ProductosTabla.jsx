@@ -34,7 +34,6 @@ const ProductosTabla = ({setMensaje}) => {
     }
 
 //Eliminar Producto
-//Nuevo Producto POST
 const onDeleteProducto = (producto) => {
   try{
   fetch(`http://localhost:8000/productos/${producto.id}/`, {
