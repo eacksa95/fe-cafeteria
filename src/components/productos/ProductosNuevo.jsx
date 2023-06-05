@@ -28,16 +28,37 @@ const ProductosNuevo = ({setMensaje}) => {
              }
             }, []);
 
-//productoId            
+//productos[actualizar]
+    useEffect( () => {
+        try{
+        fetch('http://localhost:8000/productos', {
+            method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+            headers: {
+                Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+                'Content-Type': 'application/json',
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                            setProductos(data);
+                            });
+        } catch (error) { console.error('Error:', error);
+             }
+            }, [actualizar]);
+
+
+// Actualizar id para producto Nuevo.
     useEffect(() => { obtenerIdMasAlto(); }, [productos]);
 
-        const obtenerIdMasAlto = () => {
+//obtener id para poducto nuevo
+    const obtenerIdMasAlto = () => {
             const idMasAlto = productos.reduce((maxId, producto) => {
             return producto.id > maxId ? producto.id : maxId;
             }, 0);
             setId(idMasAlto + 1);
             setCantidad(1)
         };
+
 
 //Nuevo Producto POST
     const onNuevoProducto = (e) => {

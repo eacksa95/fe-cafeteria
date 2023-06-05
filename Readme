@@ -1,29 +1,24 @@
 Descripción del Proyecto:
-    proyecto js que utiliza las siguientes tecnologías
-    node 18.15.0
-    npm v18.15.0
-    react Vite React, variant javascript, project name: FE-CAFETERIA
+    Nombre del proyecto: FE-CAFETERIA
+    Tecnologías:
+        node 18.15.0
+        npm v18.15.0
+        react Vite React:
+            variant javascript
     
-Objetivo: sirve de cliente para un servidor desarrollado en python BE-CAFETERIA que se escucha en el localhost:8000/.
+    Objetivo: 
+        sirve de cliente para BE-CAFETERIA.
+        actualmente en el localhost:8000/
 
-FE-CAFETERÍA: Gestiona datos del usuario según accesTocken se almacena en el windows.LocalStorage del navegador.
+    Detalles de la Instalación del proyecto:
+        iniciar un nuevo proyecto con Vite
+        npm init vite
+        project name: FE-CAFETERIA
+        select a framework: React
+        select a variant: javascript
 
-Pregunta 1 para profesor: Tengo problema para ejecutar la aplicación en el navegador Firefox. Mientras tanto utilizo Edge que si me permite ejecutar el proyecto. al parecer el firefox lo tengo configurado para que pre-procece los json, o nose si eso tenga algo que ver para la aplicación. Nose como hacer el ajuste.
-
-
-comandos utilizados para la instalación del proyecto
-iniciar un nuevo proyecto con Vite
-npm init vite
-project name: FE-CAFETERIA
-select a framework: React
-select a variant: javascript
-cd FE-CAFETERIA
-npm install
-code . //abrir visual studio code en .
-
-Bienvenido al codigo de FE-CAFETERIA
-components contiene Home, Login y otros componentes de la aplicación.
-estilos contiene dos archivos css. index.css y App.css
-    index.css: contiene congiruaciones mas generales
-    App.css: contiene configuraciones mas particulares: NavBar, MenuDropdown, Titulos, Items
-pages es una carpeta que contendra poco a poco mas archivos jsx con funciones y variables para renderizar páginas mas personalizadas. y Components vendrá a ser poco a poco una colección de componentes dedicados a la seguridad, y a otro tipo de preprocesamiento para las vistas o funciones.
+    Instalación del Entorno de desarrollo:
+        clonar el repositorio del proyecto: git clone https://gitlab.com/bootcamp335/fe-cafeteria.git
+        navegar hasta la ruta del proyecto: cd "fe-cafeteria"
+        instalar librerías del proyecto: npm i
+        ejecutar el proyecto modo dev: npm run dev
