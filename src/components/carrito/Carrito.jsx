@@ -1,3 +1,4 @@
+import { faPersonThroughWindow } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 
 export const Carrito = ({
@@ -23,8 +24,24 @@ export const Carrito = ({
 		//actualizar
 		const [actualizar, setActualizar] = useState(false)
 
+	//consultar Pedidos existentes primera vez
+	useEffect( () => {
+		try{
+		fetch('http://localhost:8000/pedidos/', {
+			method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+			headers: {
+				Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+				'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => res.json())
+			.then((data) => setPedidos(data))
 
-	//consultar Pedidos existentes
+		} catch (error) { console.error('Error:', error);
+			 }
+			}, [])
+
+	//consultar Pedidos existentes actualizar
 		useEffect( () => {
 			try{
 			fetch('http://localhost:8000/pedidos/', {
@@ -87,36 +104,35 @@ export const Carrito = ({
 			const monto = total
 			const estado = "pendiente"
 			const fecha_recepcion = new Date().toISOString().split('T')[0];
-			const currentDate = new Date();
-			const hora_recepcion = currentDate.toLocaleTimeString([], { hour12: false });
+			const hora_recepcion = new Date().toLocaleTimeString([], { hour12: false });
 			const hora_listo = null
 			const hora_entregado = null
-
 			try{	
 			fetch('http://localhost:8000/pedidos/', {
 					method: 'POST' /* or POST/PUT/PATCH/DELETE */,
 					headers: {
-						Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-						'Content-Type': 'application/json',
-					}, body: JSON.stringify({
-						id,
-						cliente,
-						mesa,
-						lista_productos,
-						monto,
-						estado,
-						fecha_recepcion,
-						hora_recepcion,
-						hora_listo,
-						hora_entregado
-					}),
-				}) 
+								Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+								'Content-Type': 'application/json',
+							}, 
+					body: JSON.stringify({
+								id,
+								cliente,
+								mesa,
+								lista_productos,
+								monto,
+								estado,
+								fecha_recepcion,
+								hora_recepcion,
+								hora_listo,
+								hora_entregado
+							}),
+					}) 
 					.then((res) => res.json())
 					.then((data) => {
-					setPedido(data);
-					setActive(false);
-					pedidoNuevo()
-					setActualizar(!actualizar)
+								setPedido(data);
+								setActive(!active);
+								pedidoNuevo()
+								setActualizar(!actualizar)
 					});
 				} catch (error) { console.error('Error:onEnviarPedido', error);}			
 	}
@@ -243,3 +259,5 @@ export const Carrito = ({
 		</header>
 	);
 };
+
+
