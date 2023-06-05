@@ -3,8 +3,7 @@ Descripción del Proyecto:
     Tecnologías:
         node 18.15.0
         npm v18.15.0
-        react Vite React:
-            variant javascript
+        librerías de react en el dependencies del package.json
     
     Objetivo: 
         sirve de cliente para BE-CAFETERIA.
