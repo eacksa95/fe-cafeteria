@@ -1,5 +1,5 @@
 const UsuariosLista = () => {
-    return(<></>)
+    return(<>Usuarios Lista</>)
 }
 
 export default UsuariosLista

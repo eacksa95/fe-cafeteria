@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-const UsuariosNuevo = ({setMensaje}) => {
+const UsuariosModificar = ({setMensaje}) => {
     const [usuario, setUsuario] = useState([]) 
     const [usuarios, setUsuarios] = useState([])
     const [id, setId] = useState() //id producto nuevo
@@ -146,4 +146,4 @@ const UsuariosNuevo = ({setMensaje}) => {
         </div>
     )
 }
-export default UsuariosNuevo
+export default UsuariosModificar

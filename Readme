@@ -1,13 +1,9 @@
 Descripción del Proyecto:
     Nombre del proyecto: FE-CAFETERIA
     Tecnologías:
-        node 18.15.0
-        npm v18.15.0
+        node: 18.15.0
+        npm: 9.6.4
         librerías de react en el dependencies del package.json
-    
-    Objetivo: 
-        sirve de cliente para BE-CAFETERIA.
-        actualmente en el localhost:8000/
 
     Detalles de la Instalación del proyecto:
         iniciar un nuevo proyecto con Vite
@@ -21,3 +17,5 @@ Descripción del Proyecto:
         navegar hasta la ruta del proyecto: cd "fe-cafeteria"
         instalar librerías del proyecto: npm i
         ejecutar el proyecto modo dev: npm run dev
+
+    Docker run --name fe-cafeteria --network red-cafeteria -p 5173:5173 -d fe-cafeteria

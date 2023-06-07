@@ -1,26 +1,26 @@
 //componentes
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-
-const AdminIndex = () => {
+const AdminIndex = ({children}) => {
   return(
-  <div className="contenedor-admin">
-      <div className="titulo">
-        <h4>Pagina de administración de usuarios</h4>
-      </div>
-      <div>
-        <span>lista de usuarios</span>
-      </div>
-      <div>
-          <span>crear componentes necesarios para gestionar usuarios</span>
-      </div>
-      <div>
-          <span>el acceso a esta sección del sistema será controlada mediantes
-            el route que está en el home verificando el tipo de rol que posée
-            el usuario, user.group_name
-          </span>
-      </div>
-  </div>)
+        <div className="Index">
+            <div className="titulo">
+                <h3>Admin:</h3>
+
+                <div className="nav">
+                    <span>
+                    <Link to="/admin" className='indexLink'>Mi Perfil</Link> -
+                    <Link to="/usuarioslista" className='indexLink'> Lista de Usuarios</Link> - 
+                    <Link to="/usuariosnuevo/" className='indexLink'> Nuevo Usuario</Link>
+                    </span>
+                </div>
+            </div>
+            <div className="contenido">
+                {children}
+            </div>
+        </div>
+        )
 }
 export default AdminIndex

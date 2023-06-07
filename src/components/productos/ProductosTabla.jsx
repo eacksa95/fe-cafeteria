@@ -1,6 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //iconos FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

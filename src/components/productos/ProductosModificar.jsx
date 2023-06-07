@@ -12,7 +12,7 @@ const ProductosModificar = ({setMensaje}) => {
 
 
 //Modificar Producto PUT
-    const onNuevoProducto = (e) => {
+    const onModificarProducto = (e) => {
         e.preventDefault()
         try{
         fetch('http://localhost:8000/productos/', {
@@ -41,7 +41,7 @@ const ProductosModificar = ({setMensaje}) => {
             <div className="titulo">
                 <h3>Modificar Producto</h3>
             </div>
-            <form onSubmit={onNuevoProducto}>
+            <form onSubmit={onModificarProducto}>
                 <p>Id del producto a modificar</p>
                 <input
                     aria-label="Id"

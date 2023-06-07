@@ -16,6 +16,9 @@ import Contact from '../info/Contact'
 
 //admin
 import AdminIndex from '../admin/AdminIndex'
+import Perfil from '../admin/Perfil'
+import UsuariosNuevo from '../admin/UsuariosNuevo'
+import UsuariosModificar from '../admin/UsuariosModificar'
 
 //carrito
 import {CarritoIndex} from '../carrito/CarritoIndex'
@@ -30,17 +33,13 @@ import ProductosIndex from '../productos/ProductosIndex'
 import ProductosTabla from '../productos/ProductosTabla'
 import ProductosNuevo from '../productos/ProductosNuevo'
 import ProductosModificar from '../productos/ProductosModificar'
-
-//Mensajes del sistema
-import Mensaje from '../mensajes/Mensaje'
+import UsuariosLista from '../admin/UsuariosLista'
 
 
 const Home = ({ onLogout, userId }) => {
-
   const [user, setUser] = useState()
   const role = user ? user.group_name : null
   const logoutHandler = () => { onLogout() }
-
 
   // datos de usuario
   useEffect(() => {
@@ -53,30 +52,24 @@ const Home = ({ onLogout, userId }) => {
     })
       .then((res) => res.json())
       .then((userData) => {
-        setUser(userData)
+          setUser(userData)
       })
   }, [])
 
 
- //Mensajes del sistema
-   //estados de mensajes del sistema
+ //Mensajes del sistema en pantalla
    const [mensaje, setMensaje] = useState('');
    const [mostrarMensaje, setMostrarMensaje] = useState(false);
    //cuando mensaje cambia, mostrar mensaje por 3 segundos
- useEffect(() => {
-  if (mensaje) {
-    setMostrarMensaje(true);
-    setTimeout(() => {
-      setMensaje('');
-      setMostrarMensaje(false);
-    }, 3000);
-  }
-}, [mensaje]);
-
-
-
-
-
+  useEffect(() => {
+    if (mensaje) {
+      setMostrarMensaje(true);
+      setTimeout(() => {
+        setMensaje('');
+        setMostrarMensaje(false);
+      }, 3000);
+    }
+  }, [mensaje]);
 
   //contenido para renderizar
   const contenidoProtegidoporRol = role && role === 'recepcionista' ? <CarritoIndex /> : <Inicio />
@@ -119,14 +112,16 @@ const Home = ({ onLogout, userId }) => {
                 element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} >
                                         <CarritoIndex setMensaje={setMensaje} />
                           </ProtectedRoute>
-                       }  />
-              
-              <Route
-                path="/admin"
-                element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("admin")} >
-                                        <AdminIndex />
-                          </ProtectedRoute>
                         } />
+              
+              <Route element={ <ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} />}>
+                  <Route path="/admin" element={<AdminIndex><Perfil userId={userId}/></AdminIndex>} />
+                  <Route path="/usuarioslista" element={<AdminIndex><UsuariosLista setmensaje={setMensaje} /></AdminIndex>} />
+                  <Route path="/usuariosnuevo" element={<AdminIndex><UsuariosNuevo setmensaje={setMensaje} /></AdminIndex>} />
+                  <Route path="/usuariosmodificar/:id" element={<AdminIndex><UsuariosModificar setmensaje={setMensaje} /></AdminIndex>} /> 
+                           
+                             
+              </Route>
              </Routes>
       </div>
 
