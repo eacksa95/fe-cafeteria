@@ -170,30 +170,30 @@ const PedidosPendientes = ({
 
                   <div className='listaproductos'>
                     <Table striped bordered hover className='Tabla'>
-                          <thead>
-                              <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                              </tr>
-                            </thead>
-                            <tbody>
+                      <thead>
+                        <tr>
+                          <th>Producto</th>
+                          <th>Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody>
 
-                    {pedido.lista_productos.map((productoId) => {
-                      const producto = productos.find((p) => p.id === productoId);
-                      if (producto) {
-                        return(<tr key={producto.id}>
-                                <td>{producto.nombre}</td>
-                                <td>No disponible</td>
-                               </tr>) 
-                      }
-                      return null;
-                    })}
-                    </tbody>
+                        {pedido.lista_productos.map((productoId) => {
+                          const producto = productos.find((p) => p.id === productoId);
+                          if (producto) {
+                            return (<tr key={producto.id}>
+                              <td>{producto.nombre}</td>
+                              <td>No disponible</td>
+                            </tr>)
+                          }
+                          return null;
+                        })}
+                      </tbody>
                     </Table>
                   </div>
                 </div>
                 <div className='card_botonera'>
-                <div>
+                  <div>
                     <button className='botonEliminar' onClick={() => { deletePedido(pedido) }}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
@@ -203,7 +203,7 @@ const PedidosPendientes = ({
                       <FontAwesomeIcon icon={faCheck} style={{ color: 'green' }} />
                     </button>
                   </div>
-                 
+
                 </div>
               </div>
 

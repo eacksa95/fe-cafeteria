@@ -2,27 +2,27 @@ import { faPersonThroughWindow } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 
 export const Carrito = ({
-						pedidoNuevo,
-						allProducts,
-						setAllProducts,
-						total,
-						countProducts,
-						setCountProducts,
-						setTotal,
-	}) => {
-		const [active, setActive] = useState(false);
-		const [cliente, setCliente] = useState('cliente');
-		const [mesa, setMesa] = useState();
-		
-		//productos Ids de allproducts
-		const [productosIds, setProductosIds] = useState([])
-		//onEnviarPedido response
-		const [pedido, setPedido] = useState([])	
-		//pedidoId ++
-		const [pedidos, setPedidos] = useState([]);
-		const [id, setId] = useState();
-		//actualizar
-		const [actualizar, setActualizar] = useState(false)
+	pedidoNuevo,
+	allProducts,
+	setAllProducts,
+	total,
+	countProducts,
+	setCountProducts,
+	setTotal,
+}) => {
+	const [active, setActive] = useState(false);
+	const [cliente, setCliente] = useState('cliente');
+	const [mesa, setMesa] = useState();
+
+	//productos Ids de allproducts
+	const [productosIds, setProductosIds] = useState([])
+	//onEnviarPedido response
+	const [pedido, setPedido] = useState([])
+	//pedidoId ++
+	const [pedidos, setPedidos] = useState([]);
+	const [id, setId] = useState();
+	//actualizar
+	const [actualizar, setActualizar] = useState(false)
 
 	//consultar Pedidos existentes primera vez
 	// useEffect( () => {
@@ -42,57 +42,58 @@ export const Carrito = ({
 	// 		}, [])
 
 	//consultar Pedidos existentes actualizar
-	useEffect( () => {
-		try{
-		fetch('http://localhost:8000/pedidos/', {
-			method: 'GET' /* or POST/PUT/PATCH/DELETE */,
-			headers: {
-				Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-				'Content-Type': 'application/json',
+	useEffect(() => {
+		try {
+			fetch('http://localhost:8000/pedidos/', {
+				method: 'GET' /* or POST/PUT/PATCH/DELETE */,
+				headers: {
+					Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+					'Content-Type': 'application/json',
 				},
 			})
-			.then((res) => res.json())
-			.then((data) => setPedidos(data))
+				.then((res) => res.json())
+				.then((data) => setPedidos(data))
 
-		} catch (error) { console.error('Error:', error);
-				}
-			}, [actualizar])
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	}, [actualizar])
 
-// Actualizar id para Pedido nuevo
-	useEffect(() => { obtenerIdMasAlto(); }, [pedidos]);			
+	// Actualizar id para Pedido nuevo
+	useEffect(() => { obtenerIdMasAlto(); }, [pedidos]);
 
-//Obtener id para nuevo Pedido
+	//Obtener id para nuevo Pedido
 	const obtenerIdMasAlto = () => {
 		const idMasAlto = pedidos.reduce((maxId, pedido) => {
 			return pedido.id > maxId ? pedido.id : maxId;
-			}, 0);	
-			setId(idMasAlto + 1);
+		}, 0);
+		setId(idMasAlto + 1);
 	};
 
-// extraer id de productos de allproducts
+	// extraer id de productos de allproducts
 	useEffect(() => {
 		const productIds = allProducts.map((producto) => producto.id);
-			setProductosIds(productIds)
-			}, [allProducts])
+		setProductosIds(productIds)
+	}, [allProducts])
 
-//eliminar articulo de carrito		
+	//eliminar articulo de carrito		
 	const onDeleteProduct = producto => {
 		const results = allProducts.filter(
 			item => item.id !== producto.id
-			);
+		);
 		setTotal(total - producto.precio * producto.cantidad);
 		setCountProducts(countProducts - producto.cantidad);
 		setAllProducts(results);
 	};
 
-//vaciar carrito
+	//vaciar carrito
 	const onCleanCart = () => {
 		setAllProducts([]);
 		setTotal(0);
 		setCountProducts(0);
 	};
 
-//enviar Pedido
+	//enviar Pedido
 	const onEnviarPedido = () => {
 		//renombrando campos
 		const lista_productos = productosIds
@@ -102,73 +103,73 @@ export const Carrito = ({
 		const hora_recepcion = new Date().toLocaleTimeString([], { hour12: false });
 		const hora_listo = null
 		const hora_entregado = null
-		try{	
-		fetch('http://localhost:8000/pedidos/', {
+		try {
+			fetch('http://localhost:8000/pedidos/', {
 				method: 'POST' /* or POST/PUT/PATCH/DELETE */,
 				headers: {
-							Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-							'Content-Type': 'application/json',
-						}, 
+					Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+					'Content-Type': 'application/json',
+				},
 				body: JSON.stringify({
-							id,
-							cliente,
-							mesa,
-							lista_productos,
-							monto,
-							estado,
-							fecha_recepcion,
-							hora_recepcion,
-							hora_listo,
-							hora_entregado
-						}),
-				}) 
+					id,
+					cliente,
+					mesa,
+					lista_productos,
+					monto,
+					estado,
+					fecha_recepcion,
+					hora_recepcion,
+					hora_listo,
+					hora_entregado
+				}),
+			})
 				.then((res) => res.json())
 				.then((data) => {
-							setPedido(data);
-							setActive(!active);
-							pedidoNuevo()
-							setActualizar(!actualizar)
+					setPedido(data);
+					setActive(!active);
+					pedidoNuevo()
+					setActualizar(!actualizar)
 				});
-			} catch (error) { console.error('Error:onEnviarPedido', error);}			
-}
+		} catch (error) { console.error('Error:onEnviarPedido', error); }
+	}
 
 
 
 	return (
 		<header className='carrito'>
-			
+
 			<div className='carrito-titulo'>
-			<h3>Carrito</h3>
-			<p>Buen apetito</p>
+				<h3>Carrito</h3>
+				<p>Buen apetito</p>
 			</div>
 
 			<div className='contenedorInputs'>
-			<div className='Cliente'>
-			<input
-				aria-label="Cliente"
-				placeholder="Cliente"
-				id="cliente"
-				type="text"
-				onChange={(e) => {
-				setCliente(e.target.value)
-        		}}
-      		/>
+				<div className='Cliente'>
+					<input
+						aria-label="Cliente"
+						placeholder="Cliente"
+						id="cliente"
+						type="text"
+						onChange={(e) => {
+							setCliente(e.target.value)
+						}}
+					/>
+				</div>
+				<div className='Mesa'>
+					<input
+						aria-label="Mesa"
+						placeholder="Mesa Nº"
+						id="Mesa"
+						type="text"
+						onChange={(e) => {
+							setMesa(e.target.value)
+						}}
+					/>
+				</div>
 			</div>
-			<div className='Mesa'>
-			<input
-				aria-label="Mesa"
-				placeholder="Mesa Nº"
-				id="Mesa"
-				type="text"
-				onChange={(e) => {
-				setMesa(e.target.value)
-        		}}
-      		/>
-			</div>
-			</div>
-			
-			
-			
+
+
+
 
 			<div className='container-icon'>
 				<div
@@ -195,42 +196,43 @@ export const Carrito = ({
 				</div>
 
 				<div
-					className={`container-cart-products ${
-						active ? '' : 'hidden-cart'
-					}`}
+					className={`container-cart-products ${active ? '' : 'hidden-cart'
+						}`}
 				>
 					{allProducts.length ? (
 						<>
 							<div className='row-product'>
-								{allProducts.map(producto => {return(
-									<div className='cart-product' key={producto.id}>
-										<div className='info-cart-product'>
-											<span className='cantidad-producto-carrito'>
-												{producto.cantidad}
-											</span>
-											<p className='titulo-producto-carrito'>
-												{producto.nombre}
-											</p>
-											<span className='precio-producto-carrito'>
-												${producto.precio}
-											</span>
-										</div>
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											fill='none'
-											viewBox='0 0 24 24'
-											strokeWidth='1.5'
-											stroke='currentColor'
-											className='icon-close'
-											onClick={() => onDeleteProduct(producto)}
-										>
-											<path
-												strokeLinecap='round'
-												strokeLinejoin='round'
-												d='M6 18L18 6M6 6l12 12'
-											/>
-										</svg>
-									</div>)}
+								{allProducts.map(producto => {
+									return (
+										<div className='cart-product' key={producto.id}>
+											<div className='info-cart-product'>
+												<span className='cantidad-producto-carrito'>
+													{producto.cantidad}
+												</span>
+												<p className='titulo-producto-carrito'>
+													{producto.nombre}
+												</p>
+												<span className='precio-producto-carrito'>
+													${producto.precio}
+												</span>
+											</div>
+											<svg
+												xmlns='http://www.w3.org/2000/svg'
+												fill='none'
+												viewBox='0 0 24 24'
+												strokeWidth='1.5'
+												stroke='currentColor'
+												className='icon-close'
+												onClick={() => onDeleteProduct(producto)}
+											>
+												<path
+													strokeLinecap='round'
+													strokeLinejoin='round'
+													d='M6 18L18 6M6 6l12 12'
+												/>
+											</svg>
+										</div>)
+								}
 								)}
 							</div>
 

@@ -32,44 +32,44 @@ const Perfil = ({ userId }) => {
 
     const onModificarUsuario = (user) => {
         navigate(`/usuariosmodificar/${user.id}`);
-      }
+    }
 
 
 
     return (<>
-    <div className="contenedorTabla">
-        <div className="titulo">
-            Datos del Usuario
-        </div>
-        <Table striped bordered hover className='Tabla'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Usuario</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>E-mail</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.username}</td>
-                    <td>{user.first_name}</td>
-                    <td> {user.last_name}</td>
-                    <td>{user.email}</td>
-                    <td>
-                        <button className='botonProcesar' onClick={() => {onModificarUsuario(user)}}>
-                        <FontAwesomeIcon icon={faPaintBrush} />
-                        </button>
-                        </td>
-                        
-                </tr>
-            </tbody>
-            </Table>
+        <div className="contenedorTabla">
+            <div className="titulo">
+                Datos del Usuario
             </div>
-        </>)
+            <Table striped bordered hover className='Tabla'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>E-mail</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <td>{user.username}</td>
+                        <td>{user.first_name}</td>
+                        <td> {user.last_name}</td>
+                        <td>{user.email}</td>
+                        <td>
+                            <button className='botonProcesar' onClick={() => { onModificarUsuario(user) }}>
+                                <FontAwesomeIcon icon={faPaintBrush} />
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </Table>
+        </div>
+    </>)
 }
 
 export default Perfil

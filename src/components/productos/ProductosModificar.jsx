@@ -1,42 +1,46 @@
 import { useState, useEffect } from "react"
 
-const ProductosModificar = ({setMensaje}) => {
-    const [producto, setProducto] = useState([]) 
+const ProductosModificar = ({ setMensaje }) => {
+    const [producto, setProducto] = useState([])
     const [productos, setProductos] = useState([])
     const [id, setId] = useState() //id producto nuevo
     const [nombre, setNombre] = useState('')
     const [precio, setPrecio] = useState('')
     const [cantidad, setCantidad] = useState(1)
     const [img, setImg] = useState('https://png.pngtree.com/template/20190323/ourmid/pngtree-coffee-logo-design-image_82183.jpg')
-    const [actualizar, setActualizar] = useState (false) //Actualizar estado para limpiar formulario
+    const [actualizar, setActualizar] = useState(false) //Actualizar estado para limpiar formulario
 
 
-//Modificar Producto PUT
+    //Modificar Producto PUT
     const onModificarProducto = (e) => {
         e.preventDefault()
-        try{
-        fetch('http://localhost:8000/productos/', {
-          method: 'PUT',
-          headers:{ Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-                    'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id,
-            nombre,
-            precio,
-            cantidad,
-            img
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-                            setProducto(data)
-                            setMensaje("Guardando Cambios")
-                            setActualizar(!actualizar)
-                            }
-          )}catch(e){ console.log("error onNuevoPedido:", e)}      }
-      
+        try {
+            fetch('http://localhost:8000/productos/', {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id,
+                    nombre,
+                    precio,
+                    cantidad,
+                    img
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setProducto(data)
+                    setMensaje("Guardando Cambios")
+                    setActualizar(!actualizar)
+                }
+                )
+        } catch (e) { console.log("error onNuevoPedido:", e) }
+    }
 
-    return(
+
+    return (
         <div className="contenedorForm">
             <div className="titulo">
                 <h3>Modificar Producto</h3>
@@ -49,7 +53,7 @@ const ProductosModificar = ({setMensaje}) => {
                     id="id"
                     type="text"
                     onChange={(e) => {
-                    setId(e.target.value)
+                        setId(e.target.value)
                     }}
                 />
                 <input
@@ -58,7 +62,7 @@ const ProductosModificar = ({setMensaje}) => {
                     id="name"
                     type="text"
                     onChange={(e) => {
-                    setNombre(e.target.value)
+                        setNombre(e.target.value)
                     }}
                 />
                 <input
@@ -67,7 +71,7 @@ const ProductosModificar = ({setMensaje}) => {
                     id="precio"
                     type="number"
                     onChange={(e) => {
-                    setPrecio(e.target.value)
+                        setPrecio(e.target.value)
                     }}
                 />
                 <input
@@ -76,7 +80,7 @@ const ProductosModificar = ({setMensaje}) => {
                     id="img"
                     type="text"
                     onChange={(e) => {
-                    setImg(e.target.value)
+                        setImg(e.target.value)
                     }}
                 />
                 <button type="submit">Guardar</button>
