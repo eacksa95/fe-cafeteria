@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react"
+import { useParams } from 'react-router-dom';
+
 
 const UsuariosModificar = ({ setMensaje }) => {
     const [usuario, setUsuario] = useState([])
     const [usuarios, setUsuarios] = useState([])
-    const [id, setId] = useState() //id producto nuevo
+    const { id } = useParams(); //path param user.id
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
     const [first_name, setFirst_name] = useState('')
@@ -12,68 +14,16 @@ const UsuariosModificar = ({ setMensaje }) => {
 
     const [actualizar, setActualizar] = useState(false) //Actualizar estado para limpiar formulario
 
-    //usuarios[]
-    useEffect(() => {
-        try {
-            fetch('http://localhost:8000/users', {
-                method: 'GET' /* or POST/PUT/PATCH/DELETE */,
-                headers: {
-                    Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setUsuarios(data);
-                });
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }, []);
-
-    //usuarios[actualizar]
-    useEffect(() => {
-        try {
-            fetch('http://localhost:8000/users', {
-                method: 'GET' /* or POST/PUT/PATCH/DELETE */,
-                headers: {
-                    Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setUsuarios(data);
-                });
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }, [actualizar]);
 
 
-    // Actualizar id para usuario Nuevo.
-    useEffect(() => { obtenerIdMasAlto(); }, [usuarios]);
-
-    //obtener id para usuario nuevo
-    const obtenerIdMasAlto = () => {
-        const idMasAlto = usuarios.reduce((maxId, usuario) => {
-            return usuario.id > maxId ? usuario.id : maxId;
-        }, 0);
-        setId(idMasAlto + 1);
-    };
 
 
-    //Nuevo usuario POST
+    //Modificar usuario PUT
     const onModificarUsuario = (e) => {
         e.preventDefault()
-        const last_login = null;
-        const is_superuser = null;
-        const is_staff = true;
-        const is_active = true;
-        const date = new Date();
-        const date_joined = date.toISOString();
+        const group_name = "recepcionista"
         try {
-            fetch('http://localhost:8000/users/', {
+            fetch(`http://localhost:8000/users/${id}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
@@ -81,22 +31,17 @@ const UsuariosModificar = ({ setMensaje }) => {
                 },
                 body: JSON.stringify({
                     id,
-                    password,
-                    last_login,
-                    is_superuser,
                     username,
+                    email,
                     first_name,
                     last_name,
-                    email,
-                    is_staff,
-                    is_active,
-                    date_joined
+                    group_name
                 }),
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    setUsuario(data)
-                    setMensaje("Usuario Actualizado")
+                    console.log('Usuario Modificado:', data);
+                    setMensaje("Usuario Actualizado");
                     setActualizar(!actualizar)
                 }
                 )

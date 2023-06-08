@@ -12,7 +12,7 @@ const AdminIndex = ({ children }) => {
         <div className="nav">
           <span>
             <Link to="/admin" className='indexLink'>Mi Perfil</Link> -
-            <Link to="/usuarioslista" className='indexLink'> Lista de Usuarios</Link> -
+            <Link to="/usuariostabla" className='indexLink'> Lista de Usuarios</Link> -
             <Link to="/usuariosnuevo/" className='indexLink'> Nuevo Usuario</Link>
           </span>
         </div>

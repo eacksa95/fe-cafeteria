@@ -55,7 +55,13 @@ const PedidosListos = ({ setMensaje }) => {
     const mesa = pedido.mesa
     const lista_productos = pedido.lista_productos
     const monto = pedido.monto
-    const estado = true
+    const estado = "entregado"
+    const fecha_recepcion = pedido.fecha_recepcion
+    const hora_recepcion = pedido.hora_recepcion
+    const hora_listo = pedido.hora_listo
+    const currentDate = new Date();
+    const hora_entregado = currentDate.toLocaleTimeString([], { hour12: false });
+    
     // Ejemplo de solicitud POST utilizando fetch:
     try {
       fetch(`http://localhost:8000/pedidos/${pedido.id}/`, {
@@ -70,7 +76,11 @@ const PedidosListos = ({ setMensaje }) => {
           mesa,
           lista_productos,
           monto,
-          estado
+          estado,
+          fecha_recepcion,
+          hora_recepcion,
+          hora_listo,
+          hora_entregado
         }),
       })
         .then((res) => res.json())
@@ -132,7 +142,7 @@ const PedidosListos = ({ setMensaje }) => {
         </thead>
         <tbody>
           {pedidos.map((pedido) => {
-            if (pedido.estado !== false) {
+            if (pedido.estado === "listo") {
               return (
                 <tr key={pedido.id}>
                   <td>{pedido.id}</td>

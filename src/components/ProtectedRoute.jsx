@@ -6,7 +6,7 @@ export const ProtectedRoute = ({
   children,
 }) => {
   if (!isAllowed) {
-    return <Navigate to={"/"} replace />;
+    return <Navigate to={redirectTo} replace />;
   }
 
   return children ? children : <Outlet />;

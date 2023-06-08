@@ -13,6 +13,7 @@ import { ProtectedRoute } from '../ProtectedRoute' //componente para protejer la
 import { Inicio } from './Inicio'
 import About from '../info/About'
 import Contact from '../info/Contact'
+import NoAuth from '../info/NoAuth'
 
 //admin
 import AdminIndex from '../admin/AdminIndex'
@@ -33,7 +34,7 @@ import ProductosIndex from '../productos/ProductosIndex'
 import ProductosTabla from '../productos/ProductosTabla'
 import ProductosNuevo from '../productos/ProductosNuevo'
 import ProductosModificar from '../productos/ProductosModificar'
-import UsuariosLista from '../admin/UsuariosLista'
+import UsuariosTabla from '../admin/UsuariosTabla'
 
 
 const Home = ({ onLogout, userId }) => {
@@ -95,33 +96,31 @@ const Home = ({ onLogout, userId }) => {
         <div className='contenedorRutas'>
           <Routes>
             <Route path="/" element={<Inicio />} />
+            <Route path="/noauth" element={<Inicio><NoAuth setMensaje={setMensaje}/> </Inicio>} />
             <Route path="/about" element={<Inicio><About /> </Inicio>} />
             <Route path="/contact" element={<Inicio><Contact /> </Inicio>} />
+            
             <Route element={<ProtectedRoute isAllowed={!!user} />}>
-              <Route path="/pedidosindex" element={<PedidosIndex ><PedidosPendientes setMensaje={setMensaje} /> </PedidosIndex>} />
-              <Route path="/pedidoslistos" element={<PedidosIndex><PedidosListos setMensaje={setMensaje} /> </PedidosIndex>} />
-              <Route path="/pedidospendientes" element={<PedidosIndex ><PedidosPendientes setMensaje={setMensaje} /> </PedidosIndex>} />
+                <Route path="/pedidosindex" element={<PedidosIndex ><PedidosPendientes setMensaje={setMensaje} /> </PedidosIndex>} />
+                <Route path="/pedidospendientes" element={<PedidosIndex ><PedidosPendientes setMensaje={setMensaje} /> </PedidosIndex>} />
+                <Route path="/pedidoslistos" element={<PedidosIndex><PedidosListos setMensaje={setMensaje} /> </PedidosIndex>} />
+            </Route>  
 
-              <Route path="/productosindex" element={<ProductosIndex><ProductosTabla setMensaje={setMensaje} /></ProductosIndex>} />
-              <Route path="/productosnuevo" element={<ProductosIndex><ProductosNuevo setMensaje={setMensaje} /></ProductosIndex>} />
-              <Route path="/productosmodificar/:id" element={<ProductosIndex><ProductosModificar setMensaje={setMensaje} /></ProductosIndex>} />
+            <Route element={<ProtectedRoute redirectTo="/noauth" isAllowed={!!user && (role.includes("recepcionista") || role.includes("admin"))} />}>
+                <Route path="/productosindex" element={<ProductosIndex><ProductosTabla setMensaje={setMensaje} /></ProductosIndex>} />
+                <Route path="/productosnuevo" element={<ProductosIndex><ProductosNuevo setMensaje={setMensaje} /></ProductosIndex>} />
+                <Route path="/productosmodificar/:id" element={<ProductosIndex><ProductosModificar setMensaje={setMensaje} /></ProductosIndex>} />
+
+                <Route path="/carrito" element={<CarritoIndex setMensaje={setMensaje} />} />
             </Route>
 
-            <Route
-              path="/carrito"
-              element={<ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} >
-                <CarritoIndex setMensaje={setMensaje} />
-              </ProtectedRoute>
-              } />
-
-            <Route element={<ProtectedRoute redirectTo="/" isAllowed={!!user && role.includes("recepcionista")} />}>
-              <Route path="/admin" element={<AdminIndex><Perfil userId={userId} /></AdminIndex>} />
-              <Route path="/usuarioslista" element={<AdminIndex><UsuariosLista setmensaje={setMensaje} /></AdminIndex>} />
-              <Route path="/usuariosnuevo" element={<AdminIndex><UsuariosNuevo setmensaje={setMensaje} /></AdminIndex>} />
-              <Route path="/usuariosmodificar/:id" element={<AdminIndex><UsuariosModificar setmensaje={setMensaje} /></AdminIndex>} />
-
-
+            <Route element={<ProtectedRoute redirectTo="/noauth" isAllowed={!!user && role.includes("admin")} />}>
+                <Route path="/admin" element={<AdminIndex><Perfil userId={userId} /></AdminIndex>} />
+                <Route path="/usuariostabla" element={<AdminIndex><UsuariosTabla setmensaje={setMensaje} /></AdminIndex>} />
+                <Route path="/usuariosnuevo" element={<AdminIndex><UsuariosNuevo setmensaje={setMensaje} /></AdminIndex>} />
+                <Route path="/usuariosmodificar/:id" element={<AdminIndex><UsuariosModificar setmensaje={setMensaje} /></AdminIndex>} />
             </Route>
+
           </Routes>
         </div>
 

@@ -137,6 +137,7 @@ const PedidosPendientes = ({
 
   return (
     <div className='contenedorTabla'>
+     
       <div className='titulo'>
         <h4>Pedidos Pendientes</h4>
       </div>
@@ -211,8 +212,9 @@ const PedidosPendientes = ({
             </div>
           )
         } return null;
-      })}
-    </div>)
+      })} 
+    </div>
+    )
 
 }
 
