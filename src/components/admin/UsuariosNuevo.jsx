@@ -86,7 +86,8 @@ const UsuariosNuevo = ({ setMensaje }) => {
                     email,
                     first_name,
                     last_name,
-                    group_name
+                    group_name,
+                    password
 
                 }),
             })
@@ -142,6 +143,15 @@ const UsuariosNuevo = ({ setMensaje }) => {
                     type="text"
                     onChange={(e) => {
                         setEmail(e.target.value)
+                    }}
+                />
+                 <input
+                    aria-label="password"
+                    placeholder="clave de acceso"
+                    id="password"
+                    type="password"
+                    onChange={(e) => {
+                        setPassword(e.target.value)
                     }}
                 />
                 <button type="submit">Registrar</button>

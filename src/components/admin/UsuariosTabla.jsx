@@ -8,7 +8,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 
 
-const UsuariosTabla = (setMensaje) => {
+const UsuariosTabla = ({setMensaje}) => {
     const [usuarios, setUsuarios] = useState([])
     const [usuario, setUsuario] = useState([])
     const [actualizar, setActualizar] = useState([])

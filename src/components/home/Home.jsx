@@ -116,9 +116,9 @@ const Home = ({ onLogout, userId }) => {
 
             <Route element={<ProtectedRoute redirectTo="/noauth" isAllowed={!!user && role.includes("admin")} />}>
                 <Route path="/admin" element={<AdminIndex><Perfil userId={userId} /></AdminIndex>} />
-                <Route path="/usuariostabla" element={<AdminIndex><UsuariosTabla setmensaje={setMensaje} /></AdminIndex>} />
-                <Route path="/usuariosnuevo" element={<AdminIndex><UsuariosNuevo setmensaje={setMensaje} /></AdminIndex>} />
-                <Route path="/usuariosmodificar/:id" element={<AdminIndex><UsuariosModificar setmensaje={setMensaje} /></AdminIndex>} />
+                <Route path="/usuariostabla" element={<AdminIndex><UsuariosTabla setMensaje={setMensaje} /></AdminIndex>} />
+                <Route path="/usuariosnuevo" element={<AdminIndex><UsuariosNuevo setMensaje={setMensaje} /></AdminIndex>} />
+                <Route path="/usuariosmodificar/:id" element={<AdminIndex><UsuariosModificar setmMnsaje={setMensaje} /></AdminIndex>} />
             </Route>
 
           </Routes>

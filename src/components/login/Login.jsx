@@ -27,34 +27,53 @@ const Login = ({ onLogin }) => {
 
 
   const loginHandle = (e) => {
-    e.preventDefault()
-
-    // login and get an user with JWT token
+    e.preventDefault();
+    if (!username) {
+      setMensaje("Debe proporcionar usuario");
+      return;
+    }
+    if (!password) {
+      setMensaje("Debe proporcionar Contraseña");
+      return;
+    }
+  
+    // login and get a user with JWT token
     try {
-      fetch('http://localhost:8000/api/token/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      fetch("http://localhost:8000/api/token/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username,
           password,
         }),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.ok) {
+            // Login exitoso
+            return res.json();
+          } else {
+            throw new Error("Error en el login.");
+          }
+        })
         .then((tokenData) => {
           if (tokenData.error) {
             setMensaje("Error iniciando sesión"); // Actualizar el mensaje de error si está presente en la respuesta
             return;
           }
-          window.localStorage.setItem('accessToken', JSON.stringify(tokenData.access))
+          window.localStorage.setItem("accessToken", JSON.stringify(tokenData.access) );
           console.log(tokenData);
           console.log(jwtDecode(tokenData.access).user_id);
-          onLogin(jwtDecode(tokenData.access).user_id)
-
-
-
+          onLogin(jwtDecode(tokenData.access).user_id);
         })
-    } catch (error) { console.log(error) }
-  }
+        .catch((error) => {
+          setMensaje("Error en el login"); // Manejar el error de autenticación aquí
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
 
 

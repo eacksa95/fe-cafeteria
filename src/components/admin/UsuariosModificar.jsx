@@ -22,6 +22,7 @@ const UsuariosModificar = ({ setMensaje }) => {
     const onModificarUsuario = (e) => {
         e.preventDefault()
         const group_name = "recepcionista"
+        const password = "asdfasdf"
         try {
             fetch(`http://localhost:8000/users/${id}`, {
                 method: 'PUT',
@@ -35,12 +36,13 @@ const UsuariosModificar = ({ setMensaje }) => {
                     email,
                     first_name,
                     last_name,
-                    group_name
+                    group_name,
+                    password
                 }),
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log('Usuario Modificado:', data);
+                    setUsuario(data)
                     setMensaje("Usuario Actualizado");
                     setActualizar(!actualizar)
                 }
