@@ -1,12 +1,12 @@
 Descripción del Proyecto:
     Nombre del proyecto: FE-CAFETERIA
-    Tecnologías:
+    Entorno:
         node: 18.15.0
         npm: 9.6.4
-        librerías de react en el dependencies del package.json
+        librerías en dependencias de package.json
 
     Detalles de la Instalación del proyecto:
-        iniciar un nuevo proyecto con Vite
+        Proyecto nuevo con Vite
         npm init vite
         project name: FE-CAFETERIA
         select a framework: React
