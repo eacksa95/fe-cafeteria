@@ -69,6 +69,7 @@ const PedidosPendientes = ({
     const cliente = pedido.cliente
     const mesa = pedido.mesa
     const lista_productos = pedido.lista_productos
+    const lista_cantidad = pedido.lista_cantidad
     const monto = pedido.monto
     const estado = "listo"
     const fecha_recepcion = pedido.fecha_recepcion
@@ -89,6 +90,7 @@ const PedidosPendientes = ({
           cliente,
           mesa,
           lista_productos,
+          lista_cantidad,
           monto,
           estado,
           fecha_recepcion,
@@ -179,13 +181,15 @@ const PedidosPendientes = ({
                       </thead>
                       <tbody>
 
-                        {pedido.lista_productos.map((productoId) => {
+                        {pedido.lista_productos.map((productoId, index) => {
                           const producto = productos.find((p) => p.id === productoId);
                           if (producto) {
-                            return (<tr key={producto.id}>
+                            const cantidad = pedido.lista_cantidad[index]; // Obtiene la cantidad correspondiente al producto actual
+                            return (
+                            <tr key={producto.id}>
                               <td>{producto.nombre}</td>
-                              <td>No disponible</td>
-                            </tr>)
+                              <td>{cantidad}</td>
+                            </tr>);
                           }
                           return null;
                         })}

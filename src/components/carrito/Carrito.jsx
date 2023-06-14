@@ -16,6 +16,7 @@ export const Carrito = ({
 
 	//productos Ids de allproducts
 	const [productosIds, setProductosIds] = useState([])
+	const [productosCantidad, setProductosCantidad] = useState([])
 	//onEnviarPedido response
 	const [pedido, setPedido] = useState([])
 	//pedidoId ++
@@ -76,6 +77,15 @@ export const Carrito = ({
 		setProductosIds(productIds)
 	}, [allProducts])
 
+	// extraer id de productos de allproducts
+	useEffect(() => {
+		const productosCantidad = allProducts.map((producto) => producto.cantidad);
+		setProductosCantidad(productosCantidad)
+	}, [allProducts])
+
+
+
+
 	//eliminar articulo de carrito		
 	const onDeleteProduct = producto => {
 		const results = allProducts.filter(
@@ -97,6 +107,8 @@ export const Carrito = ({
 	const onEnviarPedido = () => {
 		//renombrando campos
 		const lista_productos = productosIds
+		const lista_cantidad = productosCantidad
+		//const lista_productos = JSON.stringify(allProducts); ------no funciona
 		const monto = total
 		const estado = "pendiente"
 		const fecha_recepcion = new Date().toISOString().split('T')[0];
@@ -115,6 +127,7 @@ export const Carrito = ({
 					cliente,
 					mesa,
 					lista_productos,
+					lista_cantidad,
 					monto,
 					estado,
 					fecha_recepcion,
