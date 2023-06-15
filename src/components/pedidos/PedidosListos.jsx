@@ -41,19 +41,19 @@ const PedidosListos = ({ setMensaje }) => {
   }, [actualizar])
 
   //Filtrar pedidos por estado === "listo"
-
-
-  const pedidos_listos = (pedidos) => { pedidos.map() }
+  // const pedidos_listos = (pedidos) => { pedidos.map() }
 
 
 
 
   const entregarPedido = (pedido) => {
     //preparando los nombres de variables para el body del request
+    // Aquí es posible dejar comentarios sobre cambios en el modelo backend o modificaciones en el fetch.
     const id = pedido.id
     const cliente = pedido.cliente
     const mesa = pedido.mesa
     const lista_productos = pedido.lista_productos
+    const lista_cantidad = pedido.lista_cantidad
     const monto = pedido.monto
     const estado = "entregado"
     const fecha_recepcion = pedido.fecha_recepcion
@@ -75,6 +75,7 @@ const PedidosListos = ({ setMensaje }) => {
           cliente,
           mesa,
           lista_productos,
+          lista_cantidad,
           monto,
           estado,
           fecha_recepcion,
