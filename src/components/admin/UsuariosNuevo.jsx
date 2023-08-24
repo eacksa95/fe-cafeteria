@@ -9,6 +9,7 @@ const UsuariosNuevo = ({ setMensaje }) => {
     const [first_name, setFirst_name] = useState('')
     const [last_name, setLast_name] = useState('')
     const [email, setEmail] = useState('')
+    const [group_name, setGroup_name] = useState('')
 
     const [actualizar, setActualizar] = useState(false) //Actualizar estado para limpiar formulario
 
@@ -87,7 +88,7 @@ const UsuariosNuevo = ({ setMensaje }) => {
                     first_name,
                     last_name,
                     group_name,
-                    password
+                    password,
 
                 }),
             })
@@ -104,59 +105,70 @@ const UsuariosNuevo = ({ setMensaje }) => {
 
     return (
         <div className="contenedorForm">
-            <div className="titulo">
-                <h3>Nuevo Usuario</h3>
-            </div>
-            <form onSubmit={onNuevoUsuario}>
-                <p>Cargar datos del nuevo Usuario</p>
-                <input
-                    aria-label="UserName"
-                    placeholder="Nick de Usuario"
-                    id="username"
-                    type="text"
-                    onChange={(e) => {
-                        setUsername(e.target.value)
-                    }}
-                />
-                <input
-                    aria-label="Nombre"
-                    placeholder="Nombre"
-                    id="first_name"
-                    type="text"
-                    onChange={(e) => {
-                        setFirst_name(e.target.value)
-                    }}
-                />
-                <input
-                    aria-label="Apellido"
-                    placeholder="Apellido"
-                    id="last_name"
-                    type="text"
-                    onChange={(e) => {
-                        setLast_name(e.target.value)
-                    }}
-                />
-                <input
-                    aria-label="email"
-                    placeholder="E-mail"
-                    id="email"
-                    type="text"
-                    onChange={(e) => {
-                        setEmail(e.target.value)
-                    }}
-                />
-                 <input
-                    aria-label="password"
-                    placeholder="clave de acceso"
-                    id="password"
-                    type="password"
-                    onChange={(e) => {
-                        setPassword(e.target.value)
-                    }}
-                />
-                <button type="submit">Registrar</button>
-            </form>
+          <div className="titulo">
+            <h3>Nuevo Usuario</h3>
+          </div>
+          <form onSubmit={onNuevoUsuario}>
+            <p>Cargar datos del nuevo Usuario</p>
+            <input
+              aria-label="UserName"
+              placeholder="Nick de Usuario"
+              id="username"
+              type="text"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+            <input
+              aria-label="Nombre"
+              placeholder="Nombre"
+              id="first_name"
+              type="text"
+              onChange={(e) => {
+                setFirst_name(e.target.value);
+              }}
+            />
+            <input
+              aria-label="Apellido"
+              placeholder="Apellido"
+              id="last_name"
+              type="text"
+              onChange={(e) => {
+                setLast_name(e.target.value);
+              }}
+            />
+            <input
+              aria-label="email"
+              placeholder="E-mail"
+              id="email"
+              type="text"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+            <input
+              aria-label="password"
+              placeholder="Clave de acceso"
+              id="password"
+              type="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <select
+              id="group_name"
+              onChange={(e) => {
+                setGroup_name(e.target.value);
+              }}
+            >
+              <option value="admin">Admin</option>
+              <option value="recepcionista">Recepcionista</option>
+              <option value="cocinero">Cocinero</option>
+            </select>
+            <button type="submit">Registrar</button>
+          </form>
         </div>
-    )
+      );
+      
 }
 export default UsuariosNuevo
