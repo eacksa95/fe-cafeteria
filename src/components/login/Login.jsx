@@ -39,7 +39,7 @@ const Login = ({ onLogin }) => {
   
     // login and get a user with JWT token
     try {
-      fetch("http://localhost:8000/api/token/", {
+      fetch("https://be-cafeteria.onrender.com/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

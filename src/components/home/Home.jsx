@@ -44,7 +44,7 @@ const Home = ({ onLogout, userId }) => {
 
   // datos de usuario
   useEffect(() => {
-    fetch('http://localhost:8000/users/' + userId, {
+    fetch('https://be-cafeteria.onrender.com/users/' + userId, {
       method: 'GET' /* or POST/PUT/PATCH/DELETE */,
       headers: {
         Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
